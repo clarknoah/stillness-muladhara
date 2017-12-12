@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpModule, Http, Response, RequestOptions, Headers} from '@angular/http';
 import {FormBuilder, FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 
+
 @Component({
   selector: 'app-concept-form-testign',
   templateUrl: './concept-form-testign.component.html',
@@ -47,6 +48,13 @@ export class ConceptFormTestignComponent implements OnInit {
   }
 
   submitNewConceptToServer():void{
-
+     var newConcept = {
+       key:newConcept,
+       qualias:{
+         concept_label:this.conceptForm.controls['concept_label'].value,
+         description:this.conceptForm.controls['description'].value,
+         number:this.conceptForm.controls['number'].value
+       }
+     };
   }
 }

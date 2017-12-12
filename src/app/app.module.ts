@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-
+import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 
 //services
@@ -11,7 +11,6 @@ import { AppComponent } from './app.component';
 //UI Modules
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { ReactiveFormsModule} from '@angular/forms';
 import {
   MatButtonModule,
   MatCheckboxModule,
@@ -27,15 +26,23 @@ import {
   MatSelectModule,
   MatStepperModule,
   MatTabsModule} from '@angular/material';
+import { ConceptFormTestignComponent } from './concept-form-testign/concept-form-testign.component';
+
+const routes: Routes = [
+  {path: '', redirectTo: 'home', pathMatch: 'full'},
+  {path: 'home', component: ConceptFormTestignComponent}
+];
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ConceptFormTestignComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     MatButtonModule,
     MatCheckboxModule,
@@ -50,7 +57,8 @@ import {
     MatSidenavModule,
     MatSelectModule,
     MatStepperModule,
-    MatTabsModule
+    MatTabsModule,
+    RouterModule.forRoot(routes)
   ],
   providers: [
   ],
