@@ -27,6 +27,8 @@ import {
   MatStepperModule,
   MatTabsModule} from '@angular/material';
 import { ConceptFormTestignComponent } from './concept-form-testign/concept-form-testign.component';
+import { ConceptFormComponent } from './components/concept-form/concept-form.component';
+import { QualiaFieldComponent } from './components/qualia-field/qualia-field.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -36,7 +38,9 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    ConceptFormTestignComponent
+    ConceptFormTestignComponent,
+    ConceptFormComponent,
+    QualiaFieldComponent
   ],
   imports: [
     BrowserModule,

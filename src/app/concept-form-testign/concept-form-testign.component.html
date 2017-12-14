@@ -2,25 +2,6 @@
 
     <div class="col-md-8 offset-md-2">
         <h3>ConceptForm Test</h3>
-      <form [formGroup]="conceptForm" class="example-container">
-        <div class="form-group">
-          <mat-form-field>
-          <input type="text" matInput placeholder="Concept Label">
-        </mat-form-field>
-        </div>
-        <div class="form-group">
-          <mat-form-field>
-          <input type="text" matInput placeholder="Description">
-          </mat-form-field>
-
-        </div>
-        <div class="form-group">
-      <mat-form-field>
-      <input type="number" matInput placeholder="Label ID">
-      </mat-form-field>
-
-        </div>
-      </form>
-      <button mat-button (click)="submitNewConceptToServer()" class="btn-info" name="button">Submit</button>
+        <concept-form conceptLabel="'Concept'"></concept-form>
     </div>
 </div>

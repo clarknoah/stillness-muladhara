@@ -1,0 +1,7 @@
+<form (ngSubmit)="submitNewConceptToServer()">
+    <qualia-field
+    *ngFor="let qualia of mockConcept.qualias; let i=index"
+    [qualiaField]="qualia">
+    </qualia-field>
+    <button mat-button type="submit" class="btn-info"  name="button">Submit</button>
+</form>

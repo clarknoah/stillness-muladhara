@@ -1,0 +1,8 @@
+<mat-form-field *ngIf="qualiaField.data_type==='string'">
+<input [formControl]="qualiaControl"  type="text" matInput placeholder="{{qualiaField.placeholder}}">
+</mat-form-field>
+
+<mat-form-field *ngIf="qualiaField.data_type==='number'">
+<input [formControl]="qualiaControl" type="number" matInput placeholder="{{qualiaField.placeholder}}">
+</mat-form-field>
+<pre>{{qualiaControl.value}}</pre>
