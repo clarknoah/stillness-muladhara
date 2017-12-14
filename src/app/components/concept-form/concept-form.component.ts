@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { HttpModule, Http, Response, RequestOptions, Headers} from '@angular/http';
-
+import { FormControl } from '@angular/forms';
 @Component({
   selector: 'concept-form',
   templateUrl: './concept-form.component.html',
@@ -31,7 +31,8 @@ export class ConceptFormComponent implements OnInit {
         is_edittable: true,
         select_options:"",
         display_name:"Concept Label",
-        hint: "Database Label for Concept"
+        hint: "Database Label for Concept",
+        control: new FormControl()
       },
       {
         eq_type: "qualia",
@@ -46,7 +47,8 @@ export class ConceptFormComponent implements OnInit {
         is_edittable: true,
         select_options:null,
         display_name:"Number",
-        hint: "Really Just a test and it doesn't matter"
+        hint: "Really Just a test and it doesn't matter",
+        control: new FormControl()
         },
         {
         eq_type: "qualia",
@@ -61,7 +63,8 @@ export class ConceptFormComponent implements OnInit {
         is_edittable: true,
         select_options:null,
         display_name:"Description",
-        hint: "Description of what it does"
+        hint: "Description of what it does",
+        control: new FormControl()
           }
     ]
   };
@@ -91,11 +94,22 @@ export class ConceptFormComponent implements OnInit {
   ngOnInit() {
   }
 
+  prepareQualiasForSubmission():any{
+    var qualias = {};
+    for(var index in this.mockConcept.qualias){
+      var qualiaKey = this.mockConcept.qualias[index].qualia_db_name;
+      var qualiaValue = this.mockConcept.qualias[index].control.value;
+      qualias[qualiaKey] = qualiaValue;
+    }
+    return qualias;
+  }
+
   submitNewConceptToServer():void{
+    console.log
     var newConcept = {
       key:'newConcept',
-      label:'Concept',
-      qualias:{}
+      label:this.conceptLabel,
+      qualias:this.prepareQualiasForSubmission()
     };
     console.log(newConcept);
     this.payload.create_concepts.push(newConcept);
