@@ -15,7 +15,7 @@ export class QualiaFieldComponent implements OnInit {
   ngOnInit() {
     console.log(this.qualiaField);
     this.qualiaControl = new FormControl(
-      this.qualiaField.default_value,
+      this.qualiaField.current_value,
       [Validators.required]
     );
   }

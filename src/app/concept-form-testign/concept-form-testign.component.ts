@@ -10,7 +10,6 @@ import {FormBuilder, FormGroup, FormControl, ReactiveFormsModule } from '@angula
 })
 export class ConceptFormTestignComponent implements OnInit {
   status:any;
-  conceptForm: FormGroup;
 
   constructor(private http: Http, fb: FormBuilder) {
     this.status = {
@@ -18,11 +17,6 @@ export class ConceptFormTestignComponent implements OnInit {
       formSubmitted: false,
       formReady: false,
     };
-    this.conceptForm = fb.group({
-      concept_label:[''],
-      description:[''],
-      number:[]
-    });
   }
 
   ngOnInit() {
