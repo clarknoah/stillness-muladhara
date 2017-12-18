@@ -6,4 +6,8 @@
     <button mat-button type="submit" class="btn-info"  name="button">Submit</button>
 </form>
 
-<button mat-button (click)="getNewConceptForm('Qualia')" class="btn-danger"  name="button">Get Concept!</button>
+<input type="text" [(ngModel)]="inputConcept" name="" value="">
+<button
+mat-button
+(click)="getNewConceptForm(inputConcept)"
+class="btn-danger"  name="button">Get Concept!</button>
