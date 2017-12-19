@@ -1,3 +1,19 @@
-<p>
-  entanglement-field works!
-</p>
+<div class="" *ngIf="selectListReady">
+  <div *ngIf="entanglementField.cardinality==='one-to-one'">
+    <mat-form-field>
+      <input (keyup.enter)="getSelected()"
+      type="text"
+      matInput
+      placeholder="{{entanglementField.display_name}}"
+      [formControl]="entanglementControl"
+      [matAutocomplete]="auto"
+      (optionSelected)="getSelected($event)">
+    </mat-form-field>
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let concept of filteredSelectList | async" [value]="concept.label_name"
+        (click)="getSelected(concept)">
+        {{ concept.label_name}}
+      </mat-option>
+    </mat-autocomplete>
+  </div>
+</div>

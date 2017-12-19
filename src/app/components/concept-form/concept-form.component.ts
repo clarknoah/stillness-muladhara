@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { HttpModule, Http, Response, RequestOptions, Headers} from '@angular/http';
 import { FormControl } from '@angular/forms';
+import { DataService } from '../../services/data.service';
+
 @Component({
   selector: 'concept-form',
   templateUrl: './concept-form.component.html',
@@ -17,7 +19,8 @@ export class ConceptFormComponent implements OnInit {
   };
   conceptForm: any;
 
-  constructor(private http: Http) {
+
+  constructor(private http: Http, private dataService: DataService) {
     this.status = {
       formReceived: false,
       formSubmitted: false,
@@ -70,9 +73,6 @@ export class ConceptFormComponent implements OnInit {
     };
     console.log(newConcept);
     this.payload.create_concepts.push(newConcept);
-    this.http.post('http://localhost:3000/submitFormPayload',this.payload)
-      .subscribe((res:Response)=>{
-        console.log(res);
-      });
+    var res = this.dataService.submitPayloadToServer(this.payload);
   }
 }

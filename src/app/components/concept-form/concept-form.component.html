@@ -3,6 +3,12 @@
     *ngFor="let qualia of conceptForm.qualias; let i=index"
     [qualiaField]="qualia">
     </qualia-field>
+    <div class="" *ngIf="conceptForm.entanglements.length > 0">
+      <entanglement-field
+        *ngFor="let entanglement of conceptForm.entanglements; let i=index"
+        [entanglementField]="entanglement"></entanglement-field>
+    </div>
+
     <button mat-button type="submit" class="btn-info"  name="button">Submit</button>
 </form>
 

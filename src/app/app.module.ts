@@ -26,10 +26,13 @@ import {
   MatSelectModule,
   MatStepperModule,
   MatTabsModule} from '@angular/material';
+
 import { ConceptFormTestignComponent } from './concept-form-testign/concept-form-testign.component';
 import { ConceptFormComponent } from './components/concept-form/concept-form.component';
 import { QualiaFieldComponent } from './components/qualia-field/qualia-field.component';
 import { EntanglementFieldComponent } from './components/entanglement-field/entanglement-field.component';
+
+import{DataService} from './services/data.service';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -66,7 +69,7 @@ const routes: Routes = [
     MatTabsModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [
+  providers: [ DataService
   ],
   bootstrap: [AppComponent]
 })
