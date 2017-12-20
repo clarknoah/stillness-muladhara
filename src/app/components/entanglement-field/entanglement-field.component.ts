@@ -20,9 +20,11 @@ export class EntanglementFieldComponent implements OnInit {
   filteredSelectList: Observable<any[]>;
   selectListReady:boolean;
   preparedEntanglement:any;
+  preparedLoadVariables:any;
 
   constructor(private dataService: DataService) {
 
+    //TODO
     dataService.getConceptList('Concept','label_name').subscribe(
       (res)=>{
         this.selectList = utils.addKeyGuid(res.json(),'key');
@@ -50,12 +52,35 @@ export class EntanglementFieldComponent implements OnInit {
     getSelected(concept){
       console.log(concept);
       console.log(this.entanglementField);
-      this.preparedEntanglement = {
-        source_key:'a',
-        target_key:'a',
+      this.entanglementField.preparedEntanglement = {
+        source_key:this.setSourceKey(concept),
+        target_key:this.setTargetKey(concept),
         db_name:this.entanglementField.db_type
       };
+      console.log(this.entanglementField.preparedEntanglement);
+      this.entanglementField.preparedLoadVariables = {
+        label:concept.label,
+        id: concept.id.low,
+        key:concept.key
+      }
+
 
     }
+
+    setSourceKey(concept){
+      if(this.entanglementField.creator === 'source'){
+        return this.entanglementField.concept_key;
+      }else{
+        return concept.key;
+      }
+    }
+    setTargetKey(concept){
+      if(this.entanglementField.creator === 'target'){
+        return this.entanglementField.concept_key;
+      }else{
+        return concept.key;
+      }
+    }
+
 
 }
