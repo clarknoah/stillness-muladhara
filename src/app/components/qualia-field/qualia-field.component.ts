@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import {Utils} from '../../utils';
+var utils = new Utils();
 @Component({
   selector: 'qualia-field',
   templateUrl: './qualia-field.component.html',
@@ -17,6 +19,10 @@ export class QualiaFieldComponent implements OnInit {
       this.qualiaField.current_value,
       [Validators.required]
     );
+  }
+
+  setUtcTimestamp(){
+    this.qualiaField.control.setValue(utils.generateUtcTimestamp());
   }
 
 }

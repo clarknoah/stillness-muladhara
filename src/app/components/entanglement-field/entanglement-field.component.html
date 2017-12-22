@@ -10,9 +10,9 @@
       (optionSelected)="getSelected($event)">
     </mat-form-field>
     <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let concept of filteredSelectList | async" [value]="concept.label_name"
+      <mat-option *ngFor="let concept of filteredSelectList | async" [value]="concept.display_name"
         (click)="getSelected(concept)">
-        {{ concept.label_name}}
+        {{ concept.display_name}}
       </mat-option>
     </mat-autocomplete>
   </div>

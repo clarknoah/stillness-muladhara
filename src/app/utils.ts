@@ -20,6 +20,10 @@ export class Utils{
       s4() + '_' + s4() + s4() + s4();
   }
 
+  generateUtcTimestamp(){
+    return 123456;
+  }
+
   removeDuplicates(originalArray, objKey) {
     var trimmedArray = [];
     var values = [];
@@ -44,7 +48,7 @@ export class Utils{
 
 
   filterStringOnElementObjectKey(val: any, array, filterKey): any[] {
-    console.log(`Filter is running: ${val}`);
+    console.log(`Filter is running: ${val}, Key: ${filterKey}`);
     return array.filter(option => option[filterKey].toLowerCase().indexOf(val.toLowerCase()) === 0);
   }
 }

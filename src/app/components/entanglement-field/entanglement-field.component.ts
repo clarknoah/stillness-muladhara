@@ -22,16 +22,16 @@ export class EntanglementFieldComponent implements OnInit {
   preparedEntanglement:any;
   preparedLoadVariables:any;
 
-  constructor(private dataService: DataService) {
+  getListLabel(){
+    if(this.entanglementField.creator==='source'){
+      return this.entanglementField.target_concept;
+    }else if(this.entanglementField.creator==='target'){
+      return this.entanglementField.source_concept;
+    }
+  }
 
-    //TODO
-    dataService.getConceptList('Concept','label_name').subscribe(
-      (res)=>{
-        this.selectList = utils.addKeyGuid(res.json(),'key');
-        console.log(this.selectList);
-        this.selectListReady = true;
-      }
-    )
+
+  constructor(private dataService: DataService) {
 
   }
 
@@ -39,16 +39,28 @@ export class EntanglementFieldComponent implements OnInit {
     console.log(this.entanglementField);
     this.entanglementControl = new FormControl(
       '', [Validators.required]);
+        console.log(this.entanglementField);
+        //TODO
+        this.dataService.getConceptList(this.getListLabel(),'display_name').subscribe(
+          (res)=>{
+            this.selectList = utils.addKeyGuid(res.json(),'key');
+            console.log(this.selectList);
+            this.initializeFilter();
+            this.selectListReady = true;
+          }
+        )
+
+    }
+    initializeFilter(){
       this.filteredSelectList = this.entanglementControl.valueChanges
         .pipe(
           startWith(''),
           map(val =>{
             console.log(`Variable is: ${typeof(val)}: ${val}`);
-            return utils.filterStringOnElementObjectKey(val, this.selectList, 'label_name');
+            return utils.filterStringOnElementObjectKey(val, this.selectList, 'display_name');
           })
         );
     }
-
     getSelected(concept){
       console.log(concept);
       console.log(this.entanglementField);

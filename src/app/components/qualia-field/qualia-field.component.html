@@ -2,9 +2,34 @@
 <input [formControl]="qualiaField.control"  type="text" matInput placeholder="{{qualiaField.display_name}}">
 </mat-form-field>
 
+<mat-form-field *ngIf="qualiaField.data_type==='text-select'">
+  <mat-select [formControl]="qualiaField.control" placeholder="{{qualiaField.display_name}}">
+    <mat-option *ngFor="let option of qualaField.select_options" [value]="option">
+      {{option}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<mat-form-field *ngIf="qualiaField.data_type==='array-select'">
+  <mat-select [formControl]="qualiaField.control" placeholder="{{qualiaField.display_name}}">
+    <mat-option *ngFor="let option of qualaField.select_options" [value]="option">
+      {{option}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
 <mat-form-field *ngIf="qualiaField.data_type==='number'">
 <input [formControl]="qualiaField.control"   type="number" matInput placeholder="{{qualiaField.display_name}}">
 </mat-form-field>
 
+<mat-form-field *ngIf="qualiaField.data_type==='date'">
+  <input matInput [matDatepicker]="picker"[formControl]="qualiaField.control"   type="date" matInput placeholder="{{qualiaField.display_name}}">
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
 
-<pre>{{qualiaControl.value}}</pre>
+
+<mat-checkbox *ngIf="qualiaField.data_type==='boolean'">{{qualiaField.display_name}}</mat-checkbox>
+
+
+<pre>{{qualiaField.control.value}}</pre>
