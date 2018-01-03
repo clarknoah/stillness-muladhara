@@ -8,6 +8,7 @@ import {Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'app works!';
+  toggleSideNav: boolean = true;
   constructor(private router: Router){
 
   }

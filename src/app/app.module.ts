@@ -13,6 +13,8 @@ import { AppComponent } from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
   MatButtonModule,
+  MatIconModule,
+  MatListModule,
   MatCheckboxModule,
   MatFormFieldModule,
   MatNativeDateModule,
@@ -22,6 +24,7 @@ import {
   MatTableModule,
   MatMenuModule,
   MatGridListModule,
+  MatTooltipModule,
   MatToolbarModule,
   MatSidenavModule,
   MatSelectModule,
@@ -34,10 +37,12 @@ import { QualiaFieldComponent } from './components/qualia-field/qualia-field.com
 import { EntanglementFieldComponent } from './components/entanglement-field/entanglement-field.component';
 
 import{DataService} from './services/data.service';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
-  {path: 'home', component: ConceptFormTestignComponent}
+  {path: 'home', component: HomeComponent},
+  {path: 'conceptformtest', component: ConceptFormTestignComponent}
 ];
 
 @NgModule({
@@ -46,7 +51,8 @@ const routes: Routes = [
     ConceptFormTestignComponent,
     ConceptFormComponent,
     QualiaFieldComponent,
-    EntanglementFieldComponent
+    EntanglementFieldComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -55,8 +61,11 @@ const routes: Routes = [
     ReactiveFormsModule,
     HttpModule,
     MatButtonModule,
+    MatIconModule,
+    MatListModule,
     MatCheckboxModule,
     MatFormFieldModule,
+    MatTooltipModule,
     MatNativeDateModule,
     MatAutocompleteModule,
     MatInputModule,
