@@ -1,0 +1,7 @@
+.container {
+  display: flex; /* or inline-flex */
+}
+
+.item {
+  order: <integer>; /* default is 0 */
+}

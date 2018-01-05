@@ -1,3 +1,43 @@
-<p>
-  question-space works!
-</p>
+<mat-tab-group>
+  <mat-tab (click)="selectedEditor='concepts'" label="Concepts">
+  <div class="container">
+    <mat-card class="item">
+    <mat-card-title>Concepts</mat-card-title>
+      <mat-card-content>
+        <mat-card class="md-grid-list">
+          <mat-nav-list>
+            <mat-list-item>
+              <a>New Concept</a>
+            </mat-list-item>
+            <mat-list-item  *ngFor="let concept of concepts">
+              <a (click)="loadExistingConcept(concept)">{{concept.display_name}}</a>
+            </mat-list-item>
+          </mat-nav-list>
+        </mat-card>
+
+
+    </mat-card-content>
+    </mat-card>
+    <mat-card class="mat-elevation-z20, item" *ngIf="conceptSelected && selectedConceptExists">
+      <mat-card-title>
+       Qualias
+      </mat-card-title>
+      <mat-card-content>
+        <mat-nav-list>
+          <mat-list-item>
+            <a>New Qualia</a>
+          </mat-list-item>
+          <mat-list-item  *ngFor="let concept of concepts">
+            <a (click)="loadExistingConcept(concept)">{{concept.display_name}}</a>
+          </mat-list-item>
+        </mat-nav-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+
+  </mat-tab>
+  <mat-tab (click)="selectedEditor='entanglements'" label="Entanglements">
+
+  </mat-tab>
+</mat-tab-group>

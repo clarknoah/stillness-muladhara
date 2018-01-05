@@ -27,6 +27,29 @@ export class DataService {
       });
   }
 
+  getNewConceptForm(label):any{
+      var payload = {
+        conceptLabel:label
+      };
+      console.log(payload);
+      this.http.post('http://localhost:3000/getNewConceptForm',payload)
+        .subscribe((res:Response)=>{
+        console.log(res.json());
+        return res.json();
+      });
+  }
+  getExistingConceptForm(id):any{
+      var payload = {
+        id:id
+      };
+      console.log(payload);
+      this.http.post('http://localhost:3000/getExistingConceptForm',payload)
+        .subscribe((res:Response)=>{
+        console.log(res.json());
+        return res.json();
+      });
+  }
+
   getConceptList(conceptLabel, qualiaFieldName){
     var query = {
       concept_label:conceptLabel,

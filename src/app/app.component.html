@@ -1,34 +1,8 @@
 <mat-toolbar class="mat-elevation-z3" color="primary" >
-  <span>Stillness</span>
-  <a align="right">
-    <span matTooltip="Open Sidnav">
-    <mat-icon *ngIf="toggleSideNav === false"
-    (click)="toggleSideNav = !toggleSideNav"
-    style="cursor:pointer">list</mat-icon></span>
-  </a>
-
+  <mat-toolbar-row>
+    <span>Stillness</span>
+    <button mat-button [routerLink]="['/questionspace']"><a>Question Space</a></button>
+    <button mat-button [routerLink]="['/conceptformtest']"><a>Test Form</a></button>
+  </mat-toolbar-row>
 </mat-toolbar>
-
-<mat-sidenav-container class="example-container">
-  <mat-sidenav mode="side" class="mat-elevation-z5" opened="{{toggleSideNav}}">
-    <mat-nav-list>
-      <a (click)="toggleSideNav = false" style="cursor:pointer"><mat-icon align="right">arrow_back</mat-icon></a>
-      <a mat-list-item [routerLink]="['/questionspace']">Question Space</a>
-      <a mat-list-item [routerLink]="['/conceptformtest']">ConceptForm Test</a>
-      <a mat-list-item [routerLink]="['/conceptformtest']">ConceptForm Test</a>
-      <a mat-list-item [routerLink]="['/conceptformtest']">ConceptForm Test</a>
-      <button mat-button [matMenuTriggerFor]="menu">Menu</button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item>Item 1</button>
-        <button mat-menu-item>Item 2</button>
-      </mat-menu>
-</mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <div class="container-fluid">
-      <router-outlet></router-outlet>
-
-      <footer> This is a Footer </footer>
-  </div>
-</mat-sidenav-content>
-</mat-sidenav-container>
+  <router-outlet></router-outlet>
