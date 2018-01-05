@@ -15,6 +15,7 @@ import {
   MatButtonModule,
   MatIconModule,
   MatListModule,
+  MatCardModule,
   MatCheckboxModule,
   MatFormFieldModule,
   MatNativeDateModule,
@@ -38,11 +39,13 @@ import { EntanglementFieldComponent } from './components/entanglement-field/enta
 
 import{DataService} from './services/data.service';
 import { HomeComponent } from './home/home.component';
+import { QuestionSpaceComponent } from './question-space/question-space.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'home', component: HomeComponent},
-  {path: 'conceptformtest', component: ConceptFormTestignComponent}
+  {path: 'conceptformtest', component: ConceptFormTestignComponent},
+  {path: 'questionspace', component: QuestionSpaceComponent}
 ];
 
 @NgModule({
@@ -52,7 +55,8 @@ const routes: Routes = [
     ConceptFormComponent,
     QualiaFieldComponent,
     EntanglementFieldComponent,
-    HomeComponent
+    HomeComponent,
+    QuestionSpaceComponent
   ],
   imports: [
     BrowserModule,
@@ -61,6 +65,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     HttpModule,
     MatButtonModule,
+    MatCardModule,
     MatIconModule,
     MatListModule,
     MatCheckboxModule,

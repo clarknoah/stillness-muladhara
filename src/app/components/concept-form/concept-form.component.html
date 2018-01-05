@@ -1,5 +1,5 @@
 <form *ngIf="status.formReady" (ngSubmit)="submitNewConceptToServer()">
-    <qualia-field
+    <qualia-field class="example-full-width"
     *ngFor="let qualia of conceptForm.qualias; let i=index"
     [qualiaField]="qualia">
     </qualia-field>
@@ -9,11 +9,14 @@
         [entanglementField]="entanglement"></entanglement-field>
     </div>
 
-    <button mat-button type="submit" class="btn-info"  name="button">Submit</button>
+    <button mat-raised-button type="submit" class="btn-info"  name="button">Submit</button>
 </form>
+<hr>
+<mat-form-field>
+   <input matInput placeholder="Query Concept" type="text" [(ngModel)]="inputConcept" name="" value="">
+ </mat-form-field>
 
-<input type="text" [(ngModel)]="inputConcept" name="" value="">
 <button
-mat-button
+mat-raised-button
 (click)="getNewConceptForm(inputConcept)"
 class="btn-danger"  name="button">Get Concept!</button>
