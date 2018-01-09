@@ -12,6 +12,7 @@ var utils = new Utils();
 })
 export class ConceptFormComponent implements OnInit {
   @Input() conceptLabel: string;
+  @Input() conceptId?: number;
   status: any;
   payload: any = {
     load_variables: [],
@@ -31,7 +32,11 @@ export class ConceptFormComponent implements OnInit {
    }
 
    ngOnInit() {
-     this.getNewConceptForm(this.conceptLabel);
+     if(this.conceptId){
+       this.getExistingConceptForm()
+     }else{
+       this.getNewConceptForm(this.conceptLabel);
+     }
    }
 
    assignConceptIdAndVariable(){

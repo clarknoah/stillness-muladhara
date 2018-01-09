@@ -1,43 +1,75 @@
 <mat-tab-group>
   <mat-tab (click)="selectedEditor='concepts'" label="Concepts">
   <div class="container">
-    <mat-card class="item">
-    <mat-card-title>Concepts</mat-card-title>
-      <mat-card-content>
-        <mat-card class="md-grid-list">
-          <mat-nav-list>
-            <mat-list-item>
-              <a>New Concept</a>
-            </mat-list-item>
-            <mat-list-item  *ngFor="let concept of concepts">
-              <a (click)="loadExistingConcept(concept)">{{concept.display_name}}</a>
-            </mat-list-item>
-          </mat-nav-list>
-        </mat-card>
+<div class="item">
+  <div class="" id="displayListWhenUnselected" *ngIf="conceptSelected===false">
 
+    <h3>Concepts</h3>
+    <mat-nav-list>
+      <mat-list-item>
+        <a (click)="loadNewConceptForm()">
+          <mat-icon>fiber_new</mat-icon> New Concept</a>
+      </mat-list-item>
+      <mat-list-item  *ngFor="let concept of concepts">
+        <a (click)="loadExistingConcept(concept)">
+          <mat-icon>edit</mat-icon> {{concept.display_name}}</a>
+      </mat-list-item>
+    </mat-nav-list>
+  </div>
 
-    </mat-card-content>
-    </mat-card>
-    <mat-card class="mat-elevation-z20, item" *ngIf="conceptSelected && selectedConceptExists">
-      <mat-card-title>
-       Qualias
-      </mat-card-title>
-      <mat-card-content>
-        <mat-nav-list>
-          <mat-list-item>
-            <a>New Qualia</a>
-          </mat-list-item>
-          <mat-list-item  *ngFor="let concept of concepts">
-            <a (click)="loadExistingConcept(concept)">{{concept.display_name}}</a>
-          </mat-list-item>
-        </mat-nav-list>
-      </mat-card-content>
-    </mat-card>
+  <div id="" *ngIf="conceptSelected===true">
+    <button
+    matTooltip="Return to concepts"
+    (click)="returnToConceptList()"
+    mat-icon-button
+    type="button"
+    name="button">
+      <mat-icon>keyboard_backspace</mat-icon>
+    </button>
+  </div>
+
+</div>
+
+<div class="item" *ngIf="conceptSelected">
+  <div class="container">
+    <div class="item"
+      id="existingConceptForm"
+      *ngIf="selectedConceptExists && existingConceptFormReady">
+
+      <h3>{{selectedConcept.display_name}}: Edit Concept Form</h3>
+      <concept-form></concept-form>
+    </div>
+    <div class="item" id="Qualia List" *ngIf="selectedConceptExists">
+      <h3>Qualias</h3>
+      <mat-nav-list>
+        <mat-list-item>
+          <a (click)="loadNewQualiaForm()">
+            <mat-icon>fiber_new</mat-icon> New Qualia</a>
+        </mat-list-item>
+        <mat-list-item  *ngFor="let qualia of conceptQualiaList">
+          <a (click)="loadExistingQualiaForm(qualia)">
+            <mat-icon>edit</mat-icon> {{qualia.display_name}}
+
+          </a>
+        </mat-list-item>
+      </mat-nav-list>
+    </div>
+  </div>
+
+</div>
+
   </div>
 
 
   </mat-tab>
-  <mat-tab (click)="selectedEditor='entanglements'" label="Entanglements">
 
+
+
+  <mat-tab (click)="selectedEditor='entanglements'" label="Entanglements">
+    <div class="container">
+      <div class="item">
+        <h3>Entanglements</h3>
+      </div>
+    </div>
   </mat-tab>
 </mat-tab-group>

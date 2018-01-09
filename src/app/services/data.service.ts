@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpModule, Http, Response, RequestOptions, Headers} from '@angular/http';
 import {Utils } from "../utils";
-
+import {Observable} from "rxjs";
 var utils = new Utils();
+
+const ROOT_API = "http://localhost:3000/";
 
 @Injectable()
 export class DataService {
@@ -20,11 +22,15 @@ export class DataService {
 
   submitPayloadToServer(payload):any{
 
-    this.http.post('http://localhost:3000/submitFormPayload',payload)
+    this.http.post(ROOT_API+'submitFormPayload',payload)
       .subscribe((res:Response)=>{
         console.log(res);
         return res;
       });
+  }
+
+  getCentralDogmaConceptQualias(payload):any{
+    return this.http.post(ROOT_API+'getCentralDogmaConceptQualias',payload);
   }
 
   getNewConceptForm(label):any{
@@ -32,10 +38,10 @@ export class DataService {
         conceptLabel:label
       };
       console.log(payload);
-      this.http.post('http://localhost:3000/getNewConceptForm',payload)
+      return this.http.post(ROOT_API+'getNewConceptForm',payload)
         .subscribe((res:Response)=>{
         console.log(res.json());
-        return res.json();
+        return new Observable(res.json());
       });
   }
   getExistingConceptForm(id):any{
@@ -43,7 +49,7 @@ export class DataService {
         id:id
       };
       console.log(payload);
-      this.http.post('http://localhost:3000/getExistingConceptForm',payload)
+      this.http.post(ROOT_API+'getExistingConceptForm',payload)
         .subscribe((res:Response)=>{
         console.log(res.json());
         return res.json();
@@ -55,7 +61,7 @@ export class DataService {
       concept_label:conceptLabel,
       qualia_field_name:qualiaFieldName
     };
-    return this.http.post('http://localhost:3000/getConceptList',query);
+    return this.http.post(ROOT_API+'getConceptList',query);
 
   }
 }

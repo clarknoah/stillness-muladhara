@@ -21,6 +21,8 @@ export class QuestionSpaceComponent implements OnInit {
   selectedConcept: any;
   selectedEntanglement: any;
 
+  conceptQualiaList: any;
+
   constructor(private dataService: DataService) {
     this.selectedEditor="concepts";
     this.updateConceptList();
@@ -28,6 +30,13 @@ export class QuestionSpaceComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  returnToConceptList(){
+    this.conceptSelected=false;
+    this.selectedConceptExists = null;
+  }
+
+  returnToEntanglementList(){}
 
   updateConceptList(){
     this.dataService.getConceptList('Concept','display_name').subscribe(
@@ -44,12 +53,40 @@ export class QuestionSpaceComponent implements OnInit {
 
   loadExistingConcept(concept){
       console.log(concept);
+      var conceptId = {id:concept.id.low};
       this.conceptSelected = true;
-      this.selectedConceptExists = true;
-      this.dataService.getExistingConceptForm(concept.id.low);
+      //this.dataService.getExistingConceptForm(conceptId);
+      this.dataService.getCentralDogmaConceptQualias(conceptId)
+        .subscribe((data)=> {
+          this.conceptQualiaList = utils.addKeyGuid(data.json(),'key');
+          console.log(this.conceptQualiaList);
+          this.selectedConceptExists = true;
+        });
   }
 
-  loadConceptQualias(){
+  loadConceptQualias(){}
 
+  loadNewQualiaForm(qualia){
+    console.log(qualia);
   }
+
+  loadExistingQualiaForm(){}
+
+  loadNewConceptForm(){
+    this.conceptSelected = true;
+    this.selectedConceptExists = false;
+  }
+
+  loadExistingConceptForm(){}
+
+  deleteConcept(){}
+
+  deleteQualia(){}
+
+  loadExistingEntanglement(){}
+
+  loadNewEntanglementForm(){}
+
+  deleteEntanglement(){}
+
 }
