@@ -44,16 +44,13 @@ export class DataService {
         return new Observable(res.json());
       });
   }
-  getExistingConceptForm(id):any{
+  getExistingConceptForm(id,conceptLabel):any{
       var payload = {
-        id:id
+        id:id,
+        concceptLabel:conceptLabel
       };
       console.log(payload);
-      this.http.post(ROOT_API+'getExistingConceptForm',payload)
-        .subscribe((res:Response)=>{
-        console.log(res.json());
-        return res.json();
-      });
+      return this.http.post(ROOT_API+'getExistingConceptForm',payload);
   }
 
   getConceptList(conceptLabel, qualiaFieldName){

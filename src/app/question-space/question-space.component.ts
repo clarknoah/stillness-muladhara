@@ -19,6 +19,9 @@ export class QuestionSpaceComponent implements OnInit {
   conceptSelected: boolean = false;
   selectedConceptExists: boolean = false;
   selectedConcept: any;
+  selectedConceptForm: any;
+  selectedConceptFormReady: boolean = false;
+  selectedConceptFormCtrl: any;
   selectedEntanglement: any;
 
   conceptQualiaList: any;
@@ -53,6 +56,7 @@ export class QuestionSpaceComponent implements OnInit {
 
   loadExistingConcept(concept){
       console.log(concept);
+      this.selectedConcept = concept;
       var conceptId = {id:concept.id.low};
       this.conceptSelected = true;
       //this.dataService.getExistingConceptForm(conceptId);
@@ -60,11 +64,12 @@ export class QuestionSpaceComponent implements OnInit {
         .subscribe((data)=> {
           this.conceptQualiaList = utils.addKeyGuid(data.json(),'key');
           console.log(this.conceptQualiaList);
+          this.selectedConceptFormReady = true;
           this.selectedConceptExists = true;
         });
   }
 
-  loadConceptQualias(){}
+  loadConceptQualias(){}8
 
   loadNewQualiaForm(qualia){
     console.log(qualia);

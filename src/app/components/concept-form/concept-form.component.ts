@@ -33,10 +33,32 @@ export class ConceptFormComponent implements OnInit {
 
    ngOnInit() {
      if(this.conceptId){
-       this.getExistingConceptForm()
+       this.getExistingConceptForm();
      }else{
-       this.getNewConceptForm(this.conceptLabel);
+       this.getNewConceptForm();
      }
+   }
+
+   getExistingConceptForm(){
+     var payload = {
+       conceptLabel:this.conceptLabel
+     };
+     console.log(payload);
+     this.status.formReceived = true;
+     this.dataService.getExistingConceptForm(this.conceptId, this.conceptLabel)
+      .subscribe(
+        data=>{
+          console.log(data.json());
+          this.conceptForm = data.json();
+          this.assignConceptIdAndVariable();
+          this.assignFormControls();
+          this.status.formReady = true;
+
+        }
+      );
+
+
+
    }
 
    assignConceptIdAndVariable(){
@@ -58,9 +80,9 @@ export class ConceptFormComponent implements OnInit {
     }
   }
 
-  getNewConceptForm(label):any{
+  getNewConceptForm():any{
       var payload = {
-        conceptLabel:label
+        conceptLabel:this.conceptLabel
       };
       console.log(payload);
       this.status.formReceived = true;

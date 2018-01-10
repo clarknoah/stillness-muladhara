@@ -34,10 +34,15 @@
   <div class="container">
     <div class="item"
       id="existingConceptForm"
-      *ngIf="selectedConceptExists && existingConceptFormReady">
+      *ngIf="selectedConceptExists && selectedConceptFormReady">
 
       <h3>{{selectedConcept.display_name}}: Edit Concept Form</h3>
-      <concept-form></concept-form>
+      <mat-card>
+        <concept-form
+          [conceptLabel]="selectedConcept.label"
+          [conceptId]="selectedConcept.id.low"></concept-form>
+      </mat-card>
+
     </div>
     <div class="item" id="Qualia List" *ngIf="selectedConceptExists">
       <h3>Qualias</h3>

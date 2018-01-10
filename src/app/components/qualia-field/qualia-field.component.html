@@ -1,5 +1,10 @@
 <mat-form-field class="field-full-width" *ngIf="qualiaField.data_type==='text'">
-<input [formControl]="qualiaField.control"  type="text" matInput placeholder="{{qualiaField.display_name}}">
+<input
+  [formControl]="qualiaField.control"
+  value="{{qualiaField.current_value}}"
+  type="text"
+  matInput
+  placeholder="{{qualiaField.display_name}}">
 </mat-form-field>
 
 <mat-form-field class="field-full-width"  *ngIf="qualiaField.data_type==='text-select'">
@@ -19,7 +24,12 @@
 </mat-form-field>
 
 <mat-form-field class="field-full-width"  *ngIf="qualiaField.data_type==='number'">
-<input [formControl]="qualiaField.control"   type="number" matInput placeholder="{{qualiaField.display_name}}">
+<input
+  [formControl]="qualiaField.control"
+  type="number"
+  matInput
+  value="{{qualiaField.current_value}}"
+  placeholder="{{qualiaField.display_name}}">
 </mat-form-field>
 
 <mat-form-field class="field-full-width"  *ngIf="qualiaField.data_type==='date'">
