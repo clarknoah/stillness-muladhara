@@ -1,0 +1,27 @@
+<p>
+  playground works!
+</p>
+
+<form class="" action="index.html" method="post">
+  <input [formControl]="form.field1" type="text" name="" value="">
+  <input [formControl]="form.field2" type="text" name="" value="">
+</form>
+
+
+<pre>Input1 Valid: {{form.field1.status}}</pre>
+
+<pre>Input2 Valid: {{form.field2.status}}</pre>
+
+
+<pre>Form Valid: {{form.validForm.value}}</pre>
+
+<form class="" action="index.html" method="post">
+    <label class="" for=""> YOlo Swag</label>
+    <input [formControl]="qualiaField.updated_value"
+    type="{{qualiaField.data_type}}" name="">
+</form>
+
+<pre>
+Qualia Status: {{qualiaField.updated_value.status}}
+Qualia Modified: {{qualiaField.modified}}
+</pre>

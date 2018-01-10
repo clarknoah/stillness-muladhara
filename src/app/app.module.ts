@@ -41,11 +41,13 @@ import { EntanglementFieldComponent } from './components/entanglement-field/enta
 import{DataService} from './services/data.service';
 import { HomeComponent } from './home/home.component';
 import { QuestionSpaceComponent } from './question-space/question-space.component';
+import { PlaygroundComponent } from './playground/playground.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'home', component: HomeComponent},
   {path: 'conceptformtest', component: ConceptFormTestignComponent},
+  {path: 'playground', component: PlaygroundComponent},
   {path: 'questionspace', component: QuestionSpaceComponent}
 ];
 
@@ -57,7 +59,8 @@ const routes: Routes = [
     QualiaFieldComponent,
     EntanglementFieldComponent,
     HomeComponent,
-    QuestionSpaceComponent
+    QuestionSpaceComponent,
+    PlaygroundComponent
   ],
   imports: [
     BrowserModule,
