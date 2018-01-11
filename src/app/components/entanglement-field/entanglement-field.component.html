@@ -11,7 +11,9 @@
       (optionSelected)="getSelected($event)">
     </mat-form-field>
     <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let concept of filteredSelectList | async" [value]="concept.display_name"
+      <mat-option *ngFor="let concept of filteredSelectList | async"
+      [value]="concept.display_name"
+      id="{{concept.id.low}}"
         (click)="getSelected(concept)">
         {{ concept.display_name}}
       </mat-option>

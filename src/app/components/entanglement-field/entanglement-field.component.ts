@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ElementRef} from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { DataService} from '../../services/data.service';
 import {Observable} from 'rxjs';
@@ -31,7 +31,8 @@ export class EntanglementFieldComponent implements OnInit {
   }
 
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService,
+  private el:ElementRef) {
 
   }
 
@@ -66,6 +67,7 @@ export class EntanglementFieldComponent implements OnInit {
     }
 
     getSelected(concept){
+
       console.log(concept);
       this.entanglementField.updated_value.setValue(concept.id.low);
       console.log(`Current Selected Field: ${this.entanglementField.updated_value.value}`)
