@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { HttpModule, Http, Response, RequestOptions, Headers} from '@angular/http';
 import { FormControl } from '@angular/forms';
 import { DataService } from '../../services/data.service';
+import { ConceptForm } from '../../models/concept-form.model';
 import {Utils} from '../../utils';
 
 var utils = new Utils();
@@ -11,8 +12,7 @@ var utils = new Utils();
   styleUrls: ['./concept-form.component.css']
 })
 export class ConceptFormComponent implements OnInit {
-  @Input() conceptLabel: string;
-  @Input() conceptId?: number;
+  @Input() conceptForm: ConceptForm;
   status: any;
   payload: any = {
     load_variables: [],
@@ -20,7 +20,6 @@ export class ConceptFormComponent implements OnInit {
     create_entanglements:[],
     return:[]
   };
-  conceptForm: any;
   key:any;
 
   constructor(private http: Http, private dataService: DataService) {
@@ -32,92 +31,34 @@ export class ConceptFormComponent implements OnInit {
    }
 
    ngOnInit() {
-     if(this.conceptId){
-       this.getExistingConceptForm();
-     }else{
-       this.getNewConceptForm();
-     }
-   }
-
-   getExistingConceptForm(){
-     var payload = {
-       conceptLabel:this.conceptLabel
-     };
-     console.log(payload);
-     this.status.formReceived = true;
-     this.dataService.getExistingConceptForm(this.conceptId, this.conceptLabel)
-      .subscribe(
-        data=>{
-          console.log(data.json());
-          this.conceptForm = data.json();
-          this.assignConceptIdAndVariable();
-          this.assignFormControls();
-          this.status.formReady = true;
-
-        }
-      );
-
-
 
    }
 
-   assignConceptIdAndVariable(){
-     this.conceptForm.key = utils.generateGuid();
-     for(var i in this.conceptForm.qualias){
-       this.conceptForm.qualias[i].concept_key = this.conceptForm.key;
-     }
-     for(var i in this.conceptForm.entanglements){
-       this.conceptForm.entanglements[i].concept_key = this.conceptForm.key;
-     }
-   }
 
-  assignFormControls(){
-    for(var i in this.conceptForm.qualias){
-      this.conceptForm.qualias[i].control = new FormControl();
-    }
-    for(var i in this.conceptForm.entanglements){
-      this.conceptForm.entanglements[i].control = new FormControl();
-    }
-  }
-
-  getNewConceptForm():any{
-      var payload = {
-        conceptLabel:this.conceptLabel
-      };
-      console.log(payload);
-      this.status.formReceived = true;
-      this.http.post('http://localhost:3000/getNewConceptForm',payload)
-        .subscribe((res:Response)=>{
-        console.log(res.json());
-        this.conceptForm = res.json();
-        this.assignConceptIdAndVariable();
-        this.assignFormControls();
-        this.status.formReady = true;
-        })
-  }
 
   prepareQualiasForSubmission():any{
     var qualias = {};
     for(var index in this.conceptForm.qualias){
       var qualiaKey = this.conceptForm.qualias[index].db_key;
-      var qualiaValue = this.conceptForm.qualias[index].control.value;
+      var qualiaValue = this.conceptForm.qualias[index].updated_value.value;
       qualias[qualiaKey] = qualiaValue;
     }
     console.log(qualias);
     return qualias;
   }
+
   prepareEntanglementsForSubmission():any{
     for(var index in this.conceptForm.entanglements){
       var ent = this.conceptForm.entanglements[index];
-      this.payload.load_variables.push(ent.preparedLoadVariables);
-      this.payload.create_entanglements.push(ent.preparedEntanglement);
+    //  this.payload.load_variables.push(ent.preparedLoadVariables);
+    //  this.payload.create_entanglements.push(ent.preparedEntanglement);
     }
   }
 
   submitNewConceptToServer():void{
     var newConcept = {
-      key:this.conceptForm.key,
-      label:this.conceptForm.label_name,
+      key:this.conceptForm.db_variable,
+      label:this.conceptForm.db_label,
       qualias:this.prepareQualiasForSubmission()
     };
     console.log(newConcept);

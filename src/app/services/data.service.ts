@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpModule, Http, Response, RequestOptions, Headers} from '@angular/http';
 import {Utils } from "../utils";
-import {Observable} from "rxjs";
+import {Observable, BehaviorSubject} from "rxjs";
+import {testData } from "./testData";
 var utils = new Utils();
 
 const ROOT_API = "http://localhost:3000/";
@@ -60,5 +61,9 @@ export class DataService {
     };
     return this.http.post(ROOT_API+'getConceptList',query);
 
+  }
+  getTestConceptForm():any{
+
+    return new BehaviorSubject<any>(testData).asObservable();
   }
 }

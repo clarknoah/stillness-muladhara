@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {Observable, BehaviorSubject, Subject} from 'rxjs';
 import {Qualia} from '../models/qualia.model';
+import {ConceptForm} from '../models/concept-form.model';
+import {DataService} from '../services/data.service';
+import {Entanglement} from '../models/entanglement.model';
 
 @Component({
   selector: 'playground',
@@ -12,31 +15,28 @@ export class PlaygroundComponent implements OnInit {
 
   field: FormControl;
   qualiaField: Qualia;
+  showEntanglement:boolean = false;
+  entanglementField: Entanglement;
   form = {
     field1: new FormControl('',[Validators.required,Validators.minLength(3)]),
     field2: new FormControl('',[Validators.required,Validators.minLength(3)]),
     validForm: new BehaviorSubject<boolean>(false),
     validForm$: undefined
   };
+  conceptForm: ConceptForm;
 
-  constructor() {
-    var payload = {
-      current_value:null,
-      updated_value: 'frank',
-      eq_type: "qualia",
-      data_type: 'string',
-      default_value: 'bob',
-      placeholder: 'Name of Variable',
-      qualia_db_name: 'name_of_variable',
-      mandatory_field: true,
-      field_order: 1,
-      is_edittable: true,
-      select_options: [],
-      display_name: 'Name of Variable',
-      hint: 'Name',
-      validators:[]
-    };
-    this.qualiaField = new Qualia(payload);
+  constructor(private dataService: DataService) {
+
+
+
+    this.dataService.getTestConceptForm()
+      .subscribe(
+        (data)=>{
+          this.conceptForm = new ConceptForm('Concept',data);
+          this.entanglementField = new Entanglement(data.entanglements[0]);
+        }
+      );
+
     this.form.validForm$ = this.form.validForm.asObservable();
     this.form.validForm$.subscribe(
         data=>console.log(`ValidForm Value: ${data}`)

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpModule, Http, Response, RequestOptions, Headers} from '@angular/http';
 import {FormBuilder, FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
-
-
+import {DataService} from '../services/data.service';
+import {ConceptForm} from '../models/concept-form.model';
 @Component({
   selector: 'app-concept-form-testign',
   templateUrl: './concept-form-testign.component.html',
@@ -10,13 +10,20 @@ import {FormBuilder, FormGroup, FormControl, ReactiveFormsModule } from '@angula
 })
 export class ConceptFormTestignComponent implements OnInit {
   status:any;
-
-  constructor(private http: Http, fb: FormBuilder) {
+  conceptForm: ConceptForm;
+  constructor(private dataService: DataService) {
     this.status = {
       formReceived: false,
       formSubmitted: false,
       formReady: false,
     };
+
+        this.dataService.getTestConceptForm()
+          .subscribe(
+            (data)=>{
+              this.conceptForm = new ConceptForm('Concept',data);
+            }
+          );
   }
 
   ngOnInit() {

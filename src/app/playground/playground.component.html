@@ -15,13 +15,27 @@
 
 <pre>Form Valid: {{form.validForm.value}}</pre>
 
-<form class="" action="index.html" method="post">
-    <label class="" for=""> YOlo Swag</label>
-    <input [formControl]="qualiaField.updated_value"
-    type="{{qualiaField.data_type}}" name="">
-</form>
+<div class="" *ngFor="let qualia of conceptForm.qualias">
+
+<qualia-field [qualiaField]="qualia"></qualia-field>
+
 
 <pre>
-Qualia Status: {{qualiaField.updated_value.status}}
-Qualia Modified: {{qualiaField.modified}}
+Qualia Status: {{qualia.updated_value.status}}
+Qualia Modified: {{qualia.modified}}
+Submission Ready: {{qualia.submission_ready.value}}
 </pre>
+
+</div>
+
+<pre>
+ConceptForm Submission Status: {{conceptForm.formSubmissionReady | async}}
+</pre>
+
+
+<div class="">
+  <form class="" action="index.html" method="post" *ngFor="let entanglement of conceptForm.entanglements">
+    <entanglement-field [entanglementField]="entanglement">
+    </entanglement-field>
+  </form>
+</div>

@@ -1,11 +1,12 @@
 <div class="" *ngIf="selectListReady">
   <div *ngIf="entanglementField.cardinality==='one-to-one'">
     <mat-form-field class="field-full-width">
-      <input (keyup.enter)="getSelected()"
+      <input
       type="text"
       matInput
+      (keyup.enter)="getSelected(keyDownValue)"
       placeholder="{{entanglementField.display_name}}"
-      [formControl]="entanglementControl"
+      [formControl]="displayControl"
       [matAutocomplete]="auto"
       (optionSelected)="getSelected($event)">
     </mat-form-field>
@@ -16,4 +17,8 @@
       </mat-option>
     </mat-autocomplete>
   </div>
+  <pre *ngIf="entanglementField.debug">
+Modified: {{entanglementField.modified}}
+Ready For Submission: {{entanglementField.submission_ready | async}}
+  </pre>
 </div>
