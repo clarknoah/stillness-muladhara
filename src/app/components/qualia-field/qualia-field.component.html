@@ -45,4 +45,10 @@
 <mat-checkbox *ngIf="qualiaField.data_type==='boolean'">{{qualiaField.display_name}}</mat-checkbox>
 
 
-<pre>{{qualiaField.updated_value.value}}</pre>
+<pre *ngIf="qualiaField.debug">
+Mandatory Value: {{qualiaField.mandatory_field}}
+Current Value: {{qualiaField.current_value}}
+Updated Value: {{qualiaField.updated_value.value}}
+Modified: {{qualiaField.modified}}
+Ready For Submission: {{qualiaField.submission_ready | async}}
+</pre>

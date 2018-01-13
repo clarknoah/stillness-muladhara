@@ -18,10 +18,10 @@ export class ConceptFormTestignComponent implements OnInit {
       formReady: false,
     };
 
-        this.dataService.getTestConceptForm()
+        this.dataService.getNewConceptForm('Concept')
           .subscribe(
             (data)=>{
-              this.conceptForm = new ConceptForm('Concept',data);
+              this.conceptForm = new ConceptForm('Concept',data.json());
             }
           );
   }

@@ -62,7 +62,21 @@ export class Entanglement {
 
   }
 
+  deleteField(){
+    this.updated_value.setValue(null);
+  }
+
   checkUpdate(newValue){
+    console.log(`
+current value:${this.current_value}
+updated value:${this.updated_value.value}
+      `);
+    if(newValue === null
+      && this.current_value === null
+      && this.updated_value.status !== "VALID"){
+        this.modified = false;
+        this.submission_ready.next(false);
+      }
     if(newValue === this.current_value
       && this.current_value !== null
       && this.updated_value.status === "VALID")

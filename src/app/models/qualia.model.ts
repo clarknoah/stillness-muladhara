@@ -17,8 +17,14 @@ export class Qualia {
   hint: string;
   validators: any[];
   modified:boolean;
+  debug: boolean = false;
   submission_ready: BehaviorSubject<boolean> = new BehaviorSubject(false);
   constructor(payload: any, id?:number){
+    //TODO THis is SIN! I need to remove this null bandaid!
+    if(payload.default_value="null"){
+      payload.default_value = null;
+    }
+    this.debug = true;
     if(id){
 
       this.constructExistingQualia(payload);

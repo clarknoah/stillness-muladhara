@@ -39,6 +39,10 @@ export class EntanglementFieldComponent implements OnInit {
 
   ngOnInit(){
     this.displayControl = new FormControl(this.entanglementField.current_display);
+    this.displayControl.valueChanges
+      .subscribe(
+        data=>console.log(data)
+      );
     console.log(this.entanglementField)
         this.dataService.getConceptList(this.getListLabel(),'display_name').subscribe(
           (res)=>{
@@ -57,13 +61,29 @@ export class EntanglementFieldComponent implements OnInit {
           startWith(''),
           map(val =>{
             console.log(`Variable is: ${typeof(val)}: ${val}`);
+
             return utils.filterStringOnElementObjectKey(val, this.selectList, 'display_name');
           })
         );
       this.filteredSelectList
         .subscribe(
-          (data)=>this.keyDownValue = data[0]
+          (data)=>{this.keyDownValue = data[0];
+          console.log(this.keyDownValue);}
         );
+    }
+    getSelectedEnter(concept){
+    console.log(concept.panel.nativeElement);
+    concept.panel.nativeElement.querySelector('mat-option').click();
+    //this.getSelected(this.keyDownValue);
+    }
+
+    deleteField(){
+      let input = this.el.nativeElement.querySelector('input');
+      this.displayControl.setValue(null);
+      console.log(input);
+      input.value = null;
+      this.entanglementField.updated_value.setValue(null);
+      input.placeholder = this.entanglementField.display_name;
     }
 
     getSelected(concept){

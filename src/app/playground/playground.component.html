@@ -2,7 +2,11 @@
   playground works!
 </p>
 
-<form class="" action="index.html" method="post">
+<mat-card>
+  <concept-form [conceptForm]="conceptForm"></concept-form>
+</mat-card>
+
+<!--form class="" action="index.html" method="post">
   <input [formControl]="form.field1" type="text" name="" value="">
   <input [formControl]="form.field2" type="text" name="" value="">
 </form>
@@ -38,4 +42,4 @@ ConceptForm Submission Status: {{conceptForm.formSubmissionReady | async}}
     <entanglement-field [entanglementField]="entanglement">
     </entanglement-field>
   </form>
-</div>
+</div -->

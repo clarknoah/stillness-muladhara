@@ -3,6 +3,7 @@ import { HttpModule, Http, Response, RequestOptions, Headers} from '@angular/htt
 import {Utils } from "../utils";
 import {Observable, BehaviorSubject} from "rxjs";
 import {testData } from "./testData";
+import 'rxjs/Rx';
 var utils = new Utils();
 
 const ROOT_API = "http://localhost:3000/";
@@ -40,10 +41,7 @@ export class DataService {
       };
       console.log(payload);
       return this.http.post(ROOT_API+'getNewConceptForm',payload)
-        .subscribe((res:Response)=>{
-        console.log(res.json());
-        return new Observable(res.json());
-      });
+        .do(data=>console.log(data.json()));
   }
   getExistingConceptForm(id,conceptLabel):any{
       var payload = {
@@ -51,7 +49,8 @@ export class DataService {
         concceptLabel:conceptLabel
       };
       console.log(payload);
-      return this.http.post(ROOT_API+'getExistingConceptForm',payload);
+      return this.http.post(ROOT_API+'getExistingConceptForm',payload)
+        .map(data=>data.json());
   }
 
   getConceptList(conceptLabel, qualiaFieldName){

@@ -3,7 +3,7 @@ import {Observable } from 'rxjs';
 import { HttpModule, Http, Response, RequestOptions, Headers} from '@angular/http';
 import { DataService } from '../services/data.service';
 import {Utils} from '../utils';
-
+import {ConceptForm} from '../models/concept-form.model';
  var utils = new Utils();
 @Component({
   selector: 'question-space',
@@ -64,8 +64,17 @@ export class QuestionSpaceComponent implements OnInit {
         .subscribe((data)=> {
           this.conceptQualiaList = utils.addKeyGuid(data.json(),'key');
           console.log(this.conceptQualiaList);
-          this.selectedConceptFormReady = true;
-          this.selectedConceptExists = true;
+          this.dataService.getExistingConceptForm(
+            concept.id.low,concept.label)
+            .subscribe(
+              (data)=>{
+                this.selectedConceptForm = new ConceptForm(
+                  concept.label, data, concept.id.low);
+                  this.selectedConceptFormReady = true;
+                  this.selectedConceptExists = true;
+              }
+            );
+
         });
   }
 

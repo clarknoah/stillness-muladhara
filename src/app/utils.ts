@@ -48,7 +48,15 @@ export class Utils{
 
 
   filterStringOnElementObjectKey(val: any, array, filterKey): any[] {
-    console.log(`Filter is running: ${val}, Key: ${filterKey}`);
-    return array.filter(option => option[filterKey].toLowerCase().indexOf(val.toLowerCase()) === 0);
+    if(val!==null){
+      console.log(`Filter is running: ${val}, Key: ${filterKey}`);
+      return array.filter(option =>
+        option[filterKey]
+        .toLowerCase()
+        .indexOf(val.toLowerCase()) === 0);
+    }else{
+      return array;
+    }
+
   }
 }

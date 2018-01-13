@@ -14,9 +14,7 @@ export class ConceptForm {
   qualias:Qualia[] = [];
   entanglements:Entanglement[] = [];
   formSubmissionReady: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  //formSubmissionReady$: Observable<boolean> = this.formSubmissionReady.asObservable();
   existingForm:boolean;
-  //dataService: DataService;
   constructor(
     conceptLabel:string,
     payload:any,
@@ -32,14 +30,6 @@ export class ConceptForm {
     console.log(payload);
     this.initializeQualias(payload.qualias);
     this.initializeEntanglements(payload.entanglements);
-  //  var payload = this.dataService.getTestConceptForm()
-  //    .subscribe(
-  //      (data)=>{
-  //        this.initializeQualias(data.qualias);
-  //        this.initializeEntanglements(data.entanglements);
-  //
-  //    );
-
   }
 
 
@@ -50,16 +40,16 @@ export class ConceptForm {
   }
 
   checkIfValuesAreSubmissionReady(){
-    let status = true;
+    var status = true;
     for(var i in this.qualias){
-      let qualia = this.qualias[0];
+      let qualia = this.qualias[i];
       console.log(`${qualia.display_name}: ${qualia.submission_ready.value}`);
       if(qualia.submission_ready.value === false){
         status = false;
       }
     }
     for(var i in this.entanglements){
-      let entanglement = this.entanglements[0];
+      let entanglement = this.entanglements[i];
       console.log(`${entanglement.display_name}: ${entanglement.submission_ready.value}`);
       if(entanglement.submission_ready.value === false){
         status = false;

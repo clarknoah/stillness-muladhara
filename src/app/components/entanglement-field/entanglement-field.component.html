@@ -1,25 +1,35 @@
 <div class="" *ngIf="selectListReady">
   <div *ngIf="entanglementField.cardinality==='one-to-one'">
-    <mat-form-field class="field-full-width">
-      <input
-      type="text"
-      matInput
-      (keyup.enter)="getSelected(keyDownValue)"
-      placeholder="{{entanglementField.display_name}}"
-      [formControl]="displayControl"
-      [matAutocomplete]="auto"
-      (optionSelected)="getSelected($event)">
-    </mat-form-field>
-    <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let concept of filteredSelectList | async"
-      [value]="concept.display_name"
-      id="{{concept.id.low}}"
-        (click)="getSelected(concept)">
-        {{ concept.display_name}}
-      </mat-option>
-    </mat-autocomplete>
+    <table class="field-full-width">
+      <td>
+        <mat-form-field class="field-full-width">
+          <input
+          type="text"
+          matInput
+          (keyup.enter)="getSelectedEnter(auto)"
+          placeholder="{{entanglementField.display_name}}"
+          [formControl]="displayControl"
+          [matAutocomplete]="auto"
+          (optionSelected)="optionSelected($event)">
+        </mat-form-field>
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let concept of filteredSelectList | async"
+          [value]="concept.display_name"
+          id="{{concept.id.low}}"
+            (click)="getSelected(concept)">
+            {{ concept.display_name}}
+          </mat-option>
+        </mat-autocomplete>
+      </td>
+      <td *ngIf="entanglementField.updated_value.value!== null">
+        <button (click)="deleteField()" mat-icon-button><mat-icon>clear</mat-icon></button>
+      </td>
+    </table>
+
+
   </div>
   <pre *ngIf="entanglementField.debug">
+    Mandatory Value: {{entanglementField.mandatory_field}}
 Modified: {{entanglementField.modified}}
 Ready For Submission: {{entanglementField.submission_ready | async}}
   </pre>
