@@ -24,6 +24,7 @@ export class ConceptForm {
   //  this.dataService = injector.get(DataService);
     if(conceptId){
       this.existingForm = true;
+      this.db_id = conceptId;
     }else{
       this.existingForm = false;
     }
@@ -69,6 +70,9 @@ export class ConceptForm {
   initializeQualias(qualias){
     for(var i in qualias){
       var qualia = qualias[i];
+      if(qualia.data_type==='number' && qualia.current_value!==null){
+        qualia.current_value = qualia.current_value.low;
+      }
       console.log(qualias);
       this.qualias.push(new Qualia(qualia));
       this.qualias[i].submission_ready
@@ -81,8 +85,8 @@ export class ConceptForm {
               }
           }
         )
-        this.checkIfValuesAreSubmissionReady();
     }
+    this.checkIfValuesAreSubmissionReady();
   }
 
   initializeEntanglements(entanglements){

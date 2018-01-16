@@ -22,6 +22,7 @@ export class EntanglementFieldComponent implements OnInit {
   preparedEntanglement:any;
   preparedLoadVariables:any;
   keyDownValue:any;
+  
   getListLabel(){
     if(this.entanglementField.creator==='source'){
       return this.entanglementField.target_label;

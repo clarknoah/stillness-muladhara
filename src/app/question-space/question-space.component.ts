@@ -69,7 +69,7 @@ export class QuestionSpaceComponent implements OnInit {
             .subscribe(
               (data)=>{
                 this.selectedConceptForm = new ConceptForm(
-                  concept.label, data, concept.id.low);
+                  concept.label, data, conceptId.id);
                   this.selectedConceptFormReady = true;
                   this.selectedConceptExists = true;
               }

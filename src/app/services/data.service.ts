@@ -24,11 +24,7 @@ export class DataService {
 
   submitPayloadToServer(payload):any{
 
-    this.http.post(ROOT_API+'submitFormPayload',payload)
-      .subscribe((res:Response)=>{
-        console.log(res);
-        return res;
-      });
+    return this.http.post(ROOT_API+'submitFormPayload',payload);
   }
 
   getCentralDogmaConceptQualias(payload):any{

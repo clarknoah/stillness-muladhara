@@ -3,7 +3,8 @@ import { HttpModule, Http, Response, RequestOptions, Headers} from '@angular/htt
 import { FormControl } from '@angular/forms';
 import { DataService } from '../../services/data.service';
 import { ConceptForm } from '../../models/concept-form.model';
-import {Utils} from '../../utils';
+import { SubmissionPayload } from '../../models/submission-payload.model';
+import { Utils } from '../../utils';
 
 var utils = new Utils();
 @Component({
@@ -14,22 +15,13 @@ var utils = new Utils();
 export class ConceptFormComponent implements OnInit {
   @Input() conceptForm: ConceptForm;
   status: any;
-  payload: any = {
-    load_variables: [],
-    create_concepts: [],
-    create_entanglements:[],
-    return:[]
-  };
+  payload:SubmissionPayload;
   key:any;
 
-  constructor(private http: Http, private dataService: DataService) {
-    this.status = {
-      formReceived: false,
-      formSubmitted: false,
-      formReady: false,
-    };
-   }
 
+  constructor(private http: Http, private dataService: DataService) {
+
+  }
    ngOnInit() {
 
    }
@@ -55,16 +47,26 @@ export class ConceptFormComponent implements OnInit {
     }
   }
 
-  submitNewConceptToServer():void{
-    var newConcept = {
-      key:this.conceptForm.db_variable,
-      label:this.conceptForm.db_label,
-      qualias:this.prepareQualiasForSubmission()
-    };
-    console.log(newConcept);
-    this.payload.create_concepts.push(newConcept);
-    this.prepareEntanglementsForSubmission();
-    console.log(this.payload);
-    var res = this.dataService.submitPayloadToServer(this.payload);
+  initializeSubmit(){
+    this.payload = new SubmissionPayload;
+    if(this.conceptForm.existingForm=true){
+      var payload = this.payload
+      .prepareExistingConceptFormForSubmission(this.conceptForm);
+      console.log(payload);
+      this.submitToServer(payload);
+    }else{
+
+    }
   }
+
+  submitToServer(payload):void{
+    this.dataService.submitPayloadToServer(payload)
+      .subscribe(
+        (data)=>{
+          console.log(data);
+        }
+      )
+  }
+
+
 }

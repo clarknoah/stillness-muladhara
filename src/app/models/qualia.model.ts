@@ -26,7 +26,6 @@ export class Qualia {
     }
     this.debug = true;
     if(id){
-
       this.constructExistingQualia(payload);
     }else{
       this.constructNewQualia(payload);
@@ -81,6 +80,7 @@ export class Qualia {
   }
 
   checkUpdate(newValue){
+
     if(newValue === this.current_value
       && this.current_value !== null
       && this.updated_value.status === "VALID")
@@ -111,6 +111,7 @@ export class Qualia {
         this.submission_ready.next(true);
       return this.default_value;
     }else if(this.current_value!==null){
+      this.submission_ready.next(true);
       return this.current_value;
     }else{
       return null;

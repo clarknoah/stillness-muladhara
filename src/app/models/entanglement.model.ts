@@ -16,6 +16,7 @@ export class Entanglement {
   validators: any[];
   current_value: any;
   updated_value: FormControl;
+  updated_value_db_variable: string;
   modified: boolean;
   current_display: string;
   debug: boolean = false;
@@ -39,6 +40,7 @@ export class Entanglement {
     this.cardinality = payload.cardinality;
     this.creator = payload.creator;
     this.updated_value = new FormControl(this.assignCurrentValue(),this.assignValidators());
+    this.updated_value_db_variable = null;
     this.updated_value.valueChanges
       .subscribe(
         (data)=>{
@@ -71,6 +73,7 @@ export class Entanglement {
 current value:${this.current_value}
 updated value:${this.updated_value.value}
       `);
+
     if(newValue === null
       && this.current_value === null
       && this.updated_value.status !== "VALID"){
@@ -105,6 +108,9 @@ updated value:${this.updated_value.value}
       console.log("Entanglement is not ready for submission");
     }
   }
+
+  getSourceKey(){}
+  getTargetKey(){}
 
   assignCurrentValue(){
     this.modified = false;
