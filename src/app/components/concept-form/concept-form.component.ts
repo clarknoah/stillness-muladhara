@@ -48,15 +48,19 @@ export class ConceptFormComponent implements OnInit {
   }
 
   initializeSubmit(){
+    console.log(this.conceptForm);
     this.payload = new SubmissionPayload;
-    if(this.conceptForm.existingForm=true){
+    if(this.conceptForm.existingForm===true){
       var payload = this.payload
       .prepareExistingConceptFormForSubmission(this.conceptForm);
       console.log(payload);
-      this.submitToServer(payload);
+    //  this.submitToServer(payload);
     }else{
-
+      var payload = this.payload
+        .prepareNewConceptFormForSubmission(this.conceptForm);
+        console.log(payload);
     }
+    this.submitToServer(payload);
   }
 
   submitToServer(payload):void{

@@ -38,32 +38,67 @@ export class SubmissionPayload{
     var newConceptQualias = {};
     for(var i in qualias){
       var qualia = qualias[i];
-      var submission_ready = (qualia.submission_ready.value === true && qualia.modified === true);
+      console.log(qualia);
+      var submission_ready = (qualia.submission_ready.value === true &&
+                              qualia.modified === true);
       if(submission_ready){
         newConceptQualias[qualia.db_key] = qualia.updated_value.value;
       }
     }
     //Assign variable logic here, I forget
-    this.create_concepts.push(newConceptQualias);
+    new_concept.qualias = newConceptQualias;
+    this.create_concepts.push(new_concept);
   }
+
   prepareEntanglementsForSubmission(db_variable:string, entanglements:Entanglement[]){
-    var new_entanglement = {
-      source_key:null,
-      target_key:null,
-      db_name:null
-    };
     for(var i in entanglements){
+      var new_entanglement = {
+        source_key:null,
+        target_key:null,
+        db_name:null
+      };
       var entanglement = entanglements[i];
+      console.log(entanglement.updated_value_db_variable);
       var submission_ready = (entanglement.modified === true && entanglement.submission_ready.value === true);
       if(submission_ready){
+        console.log("Submisssion Entanglement Ready");
         new_entanglement.db_name = entanglement.db_type;
-      //  new_entanglement.source_key = entanglement.getSourceKey(db_variable);
-      //  new_entanglement.target_key = entanglement.getTargetKey(db_variable);
+        new_entanglement.source_key = this.getEntanglementSourceKey(
+          db_variable, entanglement
+        );
+        new_entanglement.target_key = this.getEntanglementTargetKey(
+          db_variable, entanglement
+        );
+        console.log(new_entanglement);
+        this.create_entanglements.push(new_entanglement);
 
       }
     }
   }
 
+  getEntanglementSourceKey(conceptVariable, entanglement){
+    if(entanglement.creator === 'source'){
+      return conceptVariable;
+    }else if(entanglement.creator === 'target'){
+      this.addLoadVariable(
+        entanglement.updated_value_db_variable,
+          entanglement.updated_value.value,
+         entanglement.current_selected_object.label);
+      return entanglement.updated_value_db_variable;
+    }
+  }
+
+  getEntanglementTargetKey(conceptVariable, entanglement){
+    if(entanglement.creator === 'target'){
+      return conceptVariable;
+    }else{
+      this.addLoadVariable(
+        entanglement.updated_value_db_variable,
+          entanglement.updated_value.value,
+         entanglement.current_selected_object.label);
+      return entanglement.updated_value_db_variable;
+    }
+  }
 
   prepareExistingConceptFormForSubmission(concept:ConceptForm){
     var concept_variable = concept.db_variable;
@@ -98,6 +133,7 @@ export class SubmissionPayload{
     }
     console.log(this.set_qualias);
   }
+
   prepareEntanglementChanges(concept_variable:string, entanglements:Entanglement[]){
     for(var i in entanglements){
       var entanglement = entanglements[i];

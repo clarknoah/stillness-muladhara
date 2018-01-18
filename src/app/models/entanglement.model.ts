@@ -10,13 +10,14 @@ export class Entanglement {
   display_name:string;
   field_order:number;
   mandatory_field: boolean;
-  source_label:string;
+  source_concept:string;
   is_edittable: boolean;
-  target_label:string;
+  target_concept:string;
   validators: any[];
   current_value: any;
   updated_value: FormControl;
-  updated_value_db_variable: string;
+  updated_value_db_variable: any;
+  current_selected_object: any;
   modified: boolean;
   current_display: string;
   debug: boolean = false;
@@ -35,8 +36,8 @@ export class Entanglement {
     this.is_edittable = payload.is_edittable;
     this.display_name = payload.display_name;
     this.hint = payload.hint;
-    this.source_label = payload.source_label;
-    this.target_label = payload.target_label;
+    this.source_concept = payload.source_concept;
+    this.target_concept = payload.target_concept;
     this.cardinality = payload.cardinality;
     this.creator = payload.creator;
     this.updated_value = new FormControl(this.assignCurrentValue(),this.assignValidators());
@@ -109,7 +110,9 @@ updated value:${this.updated_value.value}
     }
   }
 
-  getSourceKey(){}
+  //TODO
+  getUpdatedValueLoadVariable(){}
+
   getTargetKey(){}
 
   assignCurrentValue(){

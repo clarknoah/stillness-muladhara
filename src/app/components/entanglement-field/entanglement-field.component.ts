@@ -22,12 +22,11 @@ export class EntanglementFieldComponent implements OnInit {
   preparedEntanglement:any;
   preparedLoadVariables:any;
   keyDownValue:any;
-  
   getListLabel(){
     if(this.entanglementField.creator==='source'){
-      return this.entanglementField.target_label;
+      return this.entanglementField.target_concept;
     }else if(this.entanglementField.creator==='target'){
-      return this.entanglementField.source_label;
+      return this.entanglementField.source_concept;
     }
   }
 
@@ -45,7 +44,8 @@ export class EntanglementFieldComponent implements OnInit {
         data=>console.log(data)
       );
     console.log(this.entanglementField)
-        this.dataService.getConceptList(this.getListLabel(),'display_name').subscribe(
+        this.dataService.getConceptList(this.getListLabel(),'display_name')
+        .subscribe(
           (res)=>{
             this.selectList = utils.addKeyGuid(res.json(),'key');
             console.log(this.selectList);
@@ -69,27 +69,26 @@ export class EntanglementFieldComponent implements OnInit {
       this.filteredSelectList
         .subscribe(
           (data)=>{this.keyDownValue = data[0];
+          this.entanglementField.updated_value_db_variable = this.keyDownValue.key;
+          this.entanglementField.current_selected_object = data[0];
           console.log(this.keyDownValue);}
         );
     }
+
     getSelectedEnter(concept){
-    console.log(concept.panel.nativeElement);
     concept.panel.nativeElement.querySelector('mat-option').click();
-    //this.getSelected(this.keyDownValue);
     }
+
 
     deleteField(){
       let input = this.el.nativeElement.querySelector('input');
       this.displayControl.setValue(null);
-      console.log(input);
       input.value = null;
       this.entanglementField.updated_value.setValue(null);
       input.placeholder = this.entanglementField.display_name;
     }
 
     getSelected(concept){
-
-      console.log(concept);
       this.entanglementField.updated_value.setValue(concept.id.low);
       console.log(`Current Selected Field: ${this.entanglementField.updated_value.value}`)
 

@@ -20,9 +20,10 @@ export class ConceptForm {
     payload:any,
     conceptId?:number){
     this.db_label = conceptLabel;
+    console.log(conceptId);
     //let injector = ReflectiveInjector.resolveAndCreate([DataService]);
   //  this.dataService = injector.get(DataService);
-    if(conceptId){
+    if(conceptId!==undefined){
       this.existingForm = true;
       this.db_id = conceptId;
     }else{

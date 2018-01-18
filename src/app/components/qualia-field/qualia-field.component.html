@@ -6,17 +6,19 @@
   placeholder="{{qualiaField.display_name}}">
 </mat-form-field>
 
-<mat-form-field class="field-full-width"  *ngIf="qualiaField.data_type==='text-select'">
+<mat-form-field class="field-full-width"  *ngIf="qualiaField.data_type==='text_select'">
   <mat-select [formControl]="qualiaField.updated_value" placeholder="{{qualiaField.display_name}}">
-    <mat-option *ngFor="let option of qualaField.select_options" [value]="option">
+    <mat-option *ngFor="let option of qualiaField.select_options" [value]="option">
       {{option}}
     </mat-option>
   </mat-select>
 </mat-form-field>
 
 <mat-form-field class="field-full-width"  *ngIf="qualiaField.data_type==='array-select'">
-  <mat-select [formControl]="qualiaField.updated_value" placeholder="{{qualiaField.display_name}}">
-    <mat-option *ngFor="let option of qualaField.select_options" [value]="option">
+  <mat-select
+  [formControl]="qualiaField.updated_value"
+  placeholder="{{qualiaField.display_name}}">
+    <mat-option *ngFor="let option of qualiaField.select_options" [value]="option">
       {{option}}
     </mat-option>
   </mat-select>
@@ -42,7 +44,9 @@
 </mat-form-field>
 
 
-<mat-checkbox *ngIf="qualiaField.data_type==='boolean'">{{qualiaField.display_name}}</mat-checkbox>
+<mat-checkbox
+  *ngIf="qualiaField.data_type==='boolean'"
+  [formControl]="qualiaField.updated_value">{{qualiaField.display_name}}</mat-checkbox>
 
 
 <pre *ngIf="qualiaField.debug">
