@@ -18,10 +18,11 @@ export class EntanglementFieldComponent implements OnInit {
   selectList: any;
   displayControl: FormControl;
   filteredSelectList: Observable<any[]>;
-  selectListReady:boolean;
+  currentActionRequired: string;
   preparedEntanglement:any;
   preparedLoadVariables:any;
   keyDownValue:any;
+  selectListReady: boolean = false;
   getListLabel(){
     if(this.entanglementField.creator==='source'){
       return this.entanglementField.target_concept;
@@ -39,6 +40,9 @@ export class EntanglementFieldComponent implements OnInit {
 
   ngOnInit(){
     this.displayControl = new FormControl(this.entanglementField.current_display);
+    if(this.entanglementField.current_value!==null){
+      this.displayControl.setValue(this.entanglementField.current_display);
+    };
     this.displayControl.valueChanges
       .subscribe(
         data=>console.log(data)
@@ -56,45 +60,46 @@ export class EntanglementFieldComponent implements OnInit {
 
     }
 
-    initializeFilter(){
-      this.filteredSelectList = this.displayControl.valueChanges
-        .pipe(
-          startWith(''),
-          map(val =>{
-            console.log(`Variable is: ${typeof(val)}: ${val}`);
+  initializeFilter(){
+    this.filteredSelectList = this.displayControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(val =>{
+          console.log(`Variable is: ${typeof(val)}: ${val}`);
 
-            return utils.filterStringOnElementObjectKey(val, this.selectList, 'display_name');
-          })
-        );
-      this.filteredSelectList
-        .subscribe(
-          (data)=>{this.keyDownValue = data[0];
-          this.entanglementField.updated_value_db_variable = this.keyDownValue.key;
-          this.entanglementField.current_selected_object = data[0];
-          console.log(this.keyDownValue);}
-        );
-    }
+          return utils.filterStringOnElementObjectKey(val, this.selectList, 'display_name');
+        })
+      );
+    this.filteredSelectList
+      .subscribe(
+        (data)=>{this.keyDownValue = data[0];
+        this.entanglementField.updated_value_db_variable = this.keyDownValue.key;
+        this.entanglementField.current_selected_object = data[0];
+        console.log(this.keyDownValue);}
+      );
+  }
 
-    getSelectedEnter(concept){
+  getSelectedEnter(concept){
     concept.panel.nativeElement.querySelector('mat-option').click();
-    }
+  }
 
 
-    deleteField(){
-      let input = this.el.nativeElement.querySelector('input');
-      this.displayControl.setValue(null);
-      input.value = null;
-      this.entanglementField.updated_value.setValue(null);
-      input.placeholder = this.entanglementField.display_name;
-    }
+  deleteField(){
+    let input = this.el.nativeElement.querySelector('input');
+    this.displayControl.setValue(null);
+    input.value = null;
+    this.entanglementField.updated_value.setValue(null);
+    input.placeholder = this.entanglementField.display_name;
+  }
 
-    getSelected(concept){
-      this.entanglementField.updated_value.setValue(concept.id.low);
-      console.log(`Current Selected Field: ${this.entanglementField.updated_value.value}`)
+  getSelected(concept){
+    this.entanglementField.updated_value.setValue(concept.id.low);
+    console.log(`Current Selected Field: ${this.entanglementField.updated_value.value}`)
 
-    }
+  }
 
+  setCurrentValue(){
 
-
+  }
 
 }

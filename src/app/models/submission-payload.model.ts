@@ -3,10 +3,12 @@ import { Entanglement } from './entanglement.model';
 import { ConceptForm } from './concept-form.model';
 import { Utils } from '../utils';
 
+const utils = new Utils;
 
 export class SubmissionPayload{
   requesting_user = {};
   load_variables = [];
+  load_entanglement_variables = [];
   create_concepts = [];
   set_qualias= [];
   create_entanglements = [];
@@ -109,8 +111,8 @@ export class SubmissionPayload{
     console.log(db_id);
     this.addLoadVariable(concept_variable, db_id, concept_label)
     this.prepareQualiaChanges(concept_variable, concept.qualias);
-    //TODO Github Issue #63
-    //this.prepareEntanglementChanges();
+    this.prepareEntanglementChanges(concept_variable, concept.entanglements);
+    console.log(this.returnPayload());
     return this.returnPayload();
 
   }
@@ -134,20 +136,54 @@ export class SubmissionPayload{
     console.log(this.set_qualias);
   }
 
-  prepareEntanglementChanges(concept_variable:string, entanglements:Entanglement[]){
+  prepareEntanglementChanges(db_variable:string, entanglements:Entanglement[]){
     for(var i in entanglements){
+      var new_entanglement = {
+        source_key:null,
+        target_key:null,
+        db_name:null
+      };
       var entanglement = entanglements[i];
-      var submission_ready = (entanglement.submission_ready.value === true
+      var submission_ready =
+      (entanglement.submission_ready.value === true
         && entanglement.modified === true);
-      if(submission_ready){
 
+        if(submission_ready){
+              if(entanglement.entanglement_id){
+                console.log(entanglement);
+                var guid = utils.generateGuid();
+                this.addEntanglementLoadVariable(
+                  guid,
+                  entanglement.entanglement_id);
+                this.deleteEntanglement(guid);
+
+              }
+              console.log("Submisssion Entanglement Ready");
+              new_entanglement.db_name = entanglement.db_type;
+              new_entanglement.source_key = this.getEntanglementSourceKey(
+                db_variable, entanglement
+              );
+              new_entanglement.target_key = this.getEntanglementTargetKey(
+                db_variable, entanglement
+              );
+              console.log(new_entanglement);
+              this.create_entanglements.push(new_entanglement);
+
+            }
       }
     }
 
-  console.log(this.set_qualias);
-  }
 
   exportPayload(){}
+  addEntanglementLoadVariable(variable, e_id){
+    var load_variable = {
+      id:e_id,
+      key:variable
+    };
+    this.load_entanglement_variables.push(load_variable);
+    this.deduplicateEntanglementVariables();
+
+  }
   addLoadVariable(variable, db_id, concept_label){
     var load_variable = {
       key:variable,
@@ -155,15 +191,29 @@ export class SubmissionPayload{
       label:concept_label
     };
     this.load_variables.push(load_variable);
-    this.deduplicateVariables();
+  //  this.deduplicateVariables();
   }
+
+ deleteEntanglement(variable){
+   var del = {
+     key:variable
+   };
+   this.delete_entanglements.push(del);
+ }
+
   deduplicateVariables(){
-  //  this.load_variables = utils.dedupe(this.load_variables);
+    this.load_variables = utils
+    .removeDuplicates(this.load_variables, 'key');
+  }
+  deduplicateEntanglementVariables(){
+    this.load_variables = utils
+    .removeDuplicates(this.load_entanglement_variables, 'key');
   }
   returnPayload(){
     var payload = {
       requesting_user:this.requesting_user,
       load_variables: this.load_variables,
+      load_entanglement_variables: this.load_entanglement_variables,
       create_concepts: this.create_concepts,
       set_qualias: this.set_qualias,
       create_entanglements: this.create_entanglements,
@@ -171,6 +221,7 @@ export class SubmissionPayload{
       archive_concepts: this.archive_concepts,
       return_results: this.return_results
     };
+    console.log(payload);
     return payload;
   }
 

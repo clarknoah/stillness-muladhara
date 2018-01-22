@@ -7,7 +7,9 @@ export class Entanglement {
   cardinality:string;
   db_type:string;
   creator:string;
+  entanglement_id:number;
   display_name:string;
+  currentActionRequired:string;
   field_order:number;
   mandatory_field: boolean;
   source_concept:string;
@@ -30,7 +32,6 @@ export class Entanglement {
   constructVariables(payload:any){
     this.current_value = payload.current_value;
     this.db_type = payload.db_type;
-    this.current_display = payload.current_display;
     this.mandatory_field = payload.mandatory_field;
     this.field_order = payload.field_order;
     this.is_edittable = payload.is_edittable;
@@ -42,6 +43,10 @@ export class Entanglement {
     this.creator = payload.creator;
     this.updated_value = new FormControl(this.assignCurrentValue(),this.assignValidators());
     this.updated_value_db_variable = null;
+    if(this.current_value!==null){
+      this.current_display = payload.current_display_name;
+      this.entanglement_id = payload.entanglement_id;
+    }
     this.updated_value.valueChanges
       .subscribe(
         (data)=>{
@@ -68,6 +73,8 @@ export class Entanglement {
   deleteField(){
     this.updated_value.setValue(null);
   }
+
+
 
   checkUpdate(newValue){
     console.log(`

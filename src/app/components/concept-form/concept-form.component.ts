@@ -54,13 +54,14 @@ export class ConceptFormComponent implements OnInit {
       var payload = this.payload
       .prepareExistingConceptFormForSubmission(this.conceptForm);
       console.log(payload);
-    //  this.submitToServer(payload);
+      this.submitToServer(payload);
     }else{
-      var payload = this.payload
+      var payload1 = this.payload
         .prepareNewConceptFormForSubmission(this.conceptForm);
-        console.log(payload);
+        console.log(payload1);
+
     }
-    this.submitToServer(payload);
+    //this.submitToServer(payload);
   }
 
   submitToServer(payload):void{

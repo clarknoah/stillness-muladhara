@@ -22,13 +22,21 @@ export class QuestionSpaceComponent implements OnInit {
   selectedConceptForm: any;
   selectedConceptFormReady: boolean = false;
   selectedConceptFormCtrl: any;
+
+  entanglementSelected: boolean = false;
   selectedEntanglement: any;
+  selectedEntanglementExists: boolean =  false;
+  selectedEntanglementForm: any;
+  selectedEntanglementFormReady: boolean = false;
+  selectedEntanglementFormCtrl: any;
+
 
   conceptQualiaList: any;
 
   constructor(private dataService: DataService) {
     this.selectedEditor="concepts";
     this.updateConceptList();
+
    }
 
   ngOnInit() {
@@ -39,7 +47,10 @@ export class QuestionSpaceComponent implements OnInit {
     this.selectedConceptExists = null;
   }
 
-  returnToEntanglementList(){}
+  returnToEntanglementList(){
+    this.entanglementSelected=false;
+    this.selectedEntanglementExists = null;
+  }
 
   updateConceptList(){
     this.dataService.getConceptList('Concept','display_name').subscribe(
@@ -50,9 +61,32 @@ export class QuestionSpaceComponent implements OnInit {
 
       }
     )
+    this.dataService.getConceptList('Entanglement','display_name').subscribe(
+      (res)=>{
+        var returnConcepts = utils.addKeyGuid(res.json(),'key');
+        console.log(returnConcepts);
+       this.entanglements = returnConcepts;
+
+      }
+    )
   }
 
   updateEntanglementList(){}
+
+  loadExistingEntanglement(entanglement){
+    var id = {id:entanglement.id.low};
+    this.selectedEntanglement = entanglement;
+    this.entanglementSelected = true;
+    this.dataService.getExistingConceptForm(id.id,'Entanglement')
+      .subscribe(
+        (data)=>{
+          this.selectedEntanglementForm = new ConceptForm(
+            'Entanglement', data, id.id);
+            this.selectedEntanglementFormReady = true;
+            this.selectedEntanglementExists = true;
+        }
+      );
+  }
 
   loadExistingConcept(concept){
       console.log(concept);
@@ -97,7 +131,7 @@ export class QuestionSpaceComponent implements OnInit {
 
   deleteQualia(){}
 
-  loadExistingEntanglement(){}
+
 
   loadNewEntanglementForm(){}
 

@@ -42,7 +42,7 @@ export class DataService {
   getExistingConceptForm(id,conceptLabel):any{
       var payload = {
         id:id,
-        concceptLabel:conceptLabel
+        conceptLabel:conceptLabel
       };
       console.log(payload);
       return this.http.post(ROOT_API+'getExistingConceptForm',payload)

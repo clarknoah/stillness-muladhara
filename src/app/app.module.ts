@@ -42,13 +42,15 @@ import{DataService} from './services/data.service';
 import { HomeComponent } from './home/home.component';
 import { QuestionSpaceComponent } from './question-space/question-space.component';
 import { PlaygroundComponent } from './playground/playground.component';
+import { AnswerSpaceComponent } from './answer-space/answer-space.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'home', component: HomeComponent},
   {path: 'conceptformtest', component: ConceptFormTestignComponent},
   {path: 'playground', component: PlaygroundComponent},
-  {path: 'questionspace', component: QuestionSpaceComponent}
+  {path: 'questionspace', component: QuestionSpaceComponent},
+  {path: 'answerspace', component: AnswerSpaceComponent}
 ];
 
 @NgModule({
@@ -60,7 +62,8 @@ const routes: Routes = [
     EntanglementFieldComponent,
     HomeComponent,
     QuestionSpaceComponent,
-    PlaygroundComponent
+    PlaygroundComponent,
+    AnswerSpaceComponent
   ],
   imports: [
     BrowserModule,
