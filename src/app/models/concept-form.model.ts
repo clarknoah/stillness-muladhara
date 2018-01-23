@@ -43,20 +43,32 @@ export class ConceptForm {
 
   checkIfValuesAreSubmissionReady(){
     var status = true;
+    var modified = false;
     for(var i in this.qualias){
       let qualia = this.qualias[i];
-      console.log(`${qualia.display_name}: ${qualia.submission_ready.value}`);
+      //console.log(`${qualia.display_name}: ${qualia.submission_ready.value}`);
+      if(qualia.modified===true){
+      modified = true;
+      }
       if(qualia.submission_ready.value === false){
         status = false;
       }
     }
     for(var i in this.entanglements){
       let entanglement = this.entanglements[i];
-      console.log(`${entanglement.display_name}: ${entanglement.submission_ready.value}`);
+      if(entanglement.modified===true){
+      modified = true;
+      }
+      //console.log(`${entanglement.display_name}: ${entanglement.submission_ready.value}`);
       if(entanglement.submission_ready.value === false){
         status = false;
       }
     }
+
+    if(status === true && modified === false){
+      status = false;
+    }
+
     this.formSubmissionReady.next(status);
   }
 
@@ -74,7 +86,7 @@ export class ConceptForm {
       if(qualia.data_type==='number' && qualia.current_value!==null){
         qualia.current_value = qualia.current_value.low;
       }
-      console.log(qualias);
+    //  console.log(qualias);
       this.qualias.push(new Qualia(qualia));
       this.qualias[i].submission_ready
         .subscribe(
@@ -90,10 +102,18 @@ export class ConceptForm {
     this.checkIfValuesAreSubmissionReady();
   }
 
+  getEntanglementFieldByType(db_type){
+    var fieldIndex= utils.getElementIndexByKeyValue(
+      this.entanglements, 'db_type',db_type);
+    return this.entanglements[fieldIndex];
+  }
+
+  getQualiaFieldByType(){}
+
   initializeEntanglements(entanglements){
     for(var i in entanglements){
       var entanglement = entanglements[i];
-      console.log(entanglements);
+    //  console.log(entanglements);
       this.entanglements.push(new Entanglement(entanglement));
       this.qualias[i].submission_ready
         .subscribe(

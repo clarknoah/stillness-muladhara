@@ -4,6 +4,7 @@ import { HttpModule, Http, Response, RequestOptions, Headers} from '@angular/htt
 import { DataService } from '../services/data.service';
 import {Utils} from '../utils';
 import {ConceptForm} from '../models/concept-form.model';
+import { Router } from '@angular/router';
  var utils = new Utils();
 @Component({
   selector: 'question-space',
@@ -22,18 +23,26 @@ export class QuestionSpaceComponent implements OnInit {
   selectedConceptForm: any;
   selectedConceptFormReady: boolean = false;
   selectedConceptFormCtrl: any;
+  newConceptForm: ConceptForm;
+
+  qualiaSelected: boolean = false;
+  selectedQualia: any;
+  selectedQualiaExists: boolean = false;
+  selectedQualiaForm: ConceptForm;
+selectedQualiaFormReady: boolean = false;
 
   entanglementSelected: boolean = false;
   selectedEntanglement: any;
   selectedEntanglementExists: boolean =  false;
   selectedEntanglementForm: any;
   selectedEntanglementFormReady: boolean = false;
+  newEntanglementForm: ConceptForm;
   selectedEntanglementFormCtrl: any;
 
 
   conceptQualiaList: any;
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService, private router: Router) {
     this.selectedEditor="concepts";
     this.updateConceptList();
 
@@ -42,9 +51,24 @@ export class QuestionSpaceComponent implements OnInit {
   ngOnInit() {
   }
 
+  resetPage(){
+    this.updateConceptList();
+    this.updateEntanglementList();
+    this.returnToConceptList();
+    this.returnToEntanglementList();
+    this.selectedQualiaForm = undefined;
+    this.selectedQualiaExists = false;
+    this.qualiaSelected = false;
+    this.selectedQualiaFormReady = false;
+  }
+
   returnToConceptList(){
     this.conceptSelected=false;
     this.selectedConceptExists = null;
+    this.selectedQualiaForm = undefined;
+    this.selectedQualiaExists = false;
+    this.qualiaSelected = false;
+    this.selectedQualiaFormReady = false;
   }
 
   returnToEntanglementList(){
@@ -114,26 +138,102 @@ export class QuestionSpaceComponent implements OnInit {
 
   loadConceptQualias(){}8
 
-  loadNewQualiaForm(qualia){
-    console.log(qualia);
+  loadNewQualiaForm(){
+    this.qualiaSelected = true;
+    this.selectedQualiaExists = false;
+    this.dataService.getNewConceptForm('Qualia')
+      .subscribe(
+        (data)=>{
+          this.selectedQualiaForm = new ConceptForm(
+            'Qualia',data.json()
+          );
+          console.log("searching");
+          var field = this
+            .selectedQualiaForm
+            .getEntanglementFieldByType('approved_qualia');
+            console.log(field);
+            field.is_edittable = false;
+            field.updated_value.setValue(this.selectedConcept.id.low);
+          this.selectedQualiaFormReady = true;
+
+
+        }
+      );
   }
 
-  loadExistingQualiaForm(){}
+  loadExistingQualiaForm(qualia){
+    this.selectedQualia = qualia;
+    this.qualiaSelected = true;
+    this.selectedQualiaExists = true;
+    this.dataService.getExistingConceptForm(qualia.id.low,'Qualia')
+      .subscribe(
+        (data)=>{
+          this.selectedQualiaForm = new ConceptForm(
+            'Qualia',data, qualia.id.low
+          );
+          console.log("searching");
+          var field = this
+            .selectedQualiaForm
+            .getEntanglementFieldByType('approved_qualia');
+            console.log(field);
+            field.is_edittable = false;
+          this.selectedQualiaFormReady = true;
+
+
+        }
+      );
+  }
 
   loadNewConceptForm(){
     this.conceptSelected = true;
-    this.selectedConceptExists = false;
+    this.dataService.getNewConceptForm('Concept')
+      .subscribe(
+        (data)=>{
+          console.log(data.json());
+          this.newConceptForm = new ConceptForm(
+            'Concept', data.json());
+            this.selectedConceptExists = false;
+            this.selectedConceptFormReady = true;
+        }
+      );
+
+
   }
 
-  loadExistingConceptForm(){}
 
   deleteConcept(){}
 
   deleteQualia(){}
 
 
+  formStatus(event){
+    console.log(event);
+    if(event === "submissionSuccessful"){
+      this.dataService.updateCentralDogma()
+        .subscribe(
+          (data)=>{
+            console.log(data);
+            this.resetPage();
+          }
+        );
+    }
+  }
 
-  loadNewEntanglementForm(){}
+  loadNewEntanglementForm(){
+    this.selectedEntanglementExists = false;
+    this.entanglementSelected = true;
+    console.log("Loading New Entanglement");
+    this.dataService.getNewConceptForm('Entanglement')
+      .subscribe(
+        (data)=>{
+          console.log(data.json());
+          this.newEntanglementForm = new ConceptForm(
+            'Entanglement', data.json());
+            this.selectedEntanglementFormReady = true;
+        }
+      );
+
+  }
 
   deleteEntanglement(){}
 

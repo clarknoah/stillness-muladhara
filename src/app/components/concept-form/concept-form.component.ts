@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { HttpModule, Http, Response, RequestOptions, Headers} from '@angular/http';
 import { FormControl } from '@angular/forms';
 import { DataService } from '../../services/data.service';
@@ -14,7 +14,7 @@ var utils = new Utils();
 })
 export class ConceptFormComponent implements OnInit {
   @Input() conceptForm: ConceptForm;
-  status: any;
+  @Output() status: EventEmitter<string> = new EventEmitter();
   payload:SubmissionPayload;
   key:any;
 
@@ -25,7 +25,6 @@ export class ConceptFormComponent implements OnInit {
    ngOnInit() {
 
    }
-
 
 
   prepareQualiasForSubmission():any{
@@ -56,19 +55,29 @@ export class ConceptFormComponent implements OnInit {
       console.log(payload);
       this.submitToServer(payload);
     }else{
-      var payload1 = this.payload
+      var payload = this.payload
         .prepareNewConceptFormForSubmission(this.conceptForm);
-        console.log(payload1);
+        console.log(payload);
 
     }
-    //this.submitToServer(payload);
+    this.submitToServer(payload);
   }
+
+
+archiveConcept(){
+ this.payload = new SubmissionPayload;
+ var payload = this.payload.archiveConcept(this.conceptForm.db_id, this.conceptForm.db_label);
+ console.log(payload);
+ this.submitToServer(payload);
+}
+
 
   submitToServer(payload):void{
     this.dataService.submitPayloadToServer(payload)
       .subscribe(
         (data)=>{
           console.log(data);
+          this.status.emit('submissionSuccessful');
         }
       )
   }

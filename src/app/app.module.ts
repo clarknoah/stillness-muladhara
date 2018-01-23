@@ -39,6 +39,7 @@ import { QualiaFieldComponent } from './components/qualia-field/qualia-field.com
 import { EntanglementFieldComponent } from './components/entanglement-field/entanglement-field.component';
 
 import{DataService} from './services/data.service';
+import { AtmanService } from './services/atman.service';
 import { HomeComponent } from './home/home.component';
 import { QuestionSpaceComponent } from './question-space/question-space.component';
 import { PlaygroundComponent } from './playground/playground.component';
@@ -93,7 +94,7 @@ const routes: Routes = [
     MatTabsModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [ DataService
+  providers: [ DataService, AtmanService
   ],
   bootstrap: [AppComponent]
 })

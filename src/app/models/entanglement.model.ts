@@ -13,7 +13,7 @@ export class Entanglement {
   field_order:number;
   mandatory_field: boolean;
   source_concept:string;
-  is_edittable: boolean;
+  is_editable: boolean;
   target_concept:string;
   validators: any[];
   current_value: any;
@@ -34,7 +34,7 @@ export class Entanglement {
     this.db_type = payload.db_type;
     this.mandatory_field = payload.mandatory_field;
     this.field_order = payload.field_order;
-    this.is_edittable = payload.is_edittable;
+    this.is_editable = payload.is_editable;
     this.display_name = payload.display_name;
     this.hint = payload.hint;
     this.source_concept = payload.source_concept;

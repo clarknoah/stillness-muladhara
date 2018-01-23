@@ -20,6 +20,18 @@ export class SubmissionPayload{
   }
   constructor(){}
 
+  archiveConcept(id, label){
+    var archive = {
+      id:id,
+      label:label,
+      variable: utils.generateGuid()
+    };
+    this.archive_concepts.push(archive);
+    this.addLoadVariable(archive.variable, archive.id, archive.label);
+    return this.returnPayload();
+  }
+
+
   prepareNewConceptFormForSubmission(concept:ConceptForm){
     var db_variable = concept.db_variable;
     var concept_label = concept.db_label;
@@ -31,6 +43,8 @@ export class SubmissionPayload{
     return this.returnPayload();
 
   }
+
+
   prepareNewConceptFormQualiasForSubmission(concept_label:string, db_variable:string, qualias:Qualia[]){
     var new_concept = {
       key:db_variable,
@@ -108,11 +122,10 @@ export class SubmissionPayload{
     var concept_label = concept.db_label;
     var qualias = concept.qualias;
     var entanglements = concept.entanglements;
-    console.log(db_id);
-    this.addLoadVariable(concept_variable, db_id, concept_label)
+    this.addLoadVariable(concept_variable, db_id, concept_label);
+    console.log(this.load_variables);
     this.prepareQualiaChanges(concept_variable, concept.qualias);
     this.prepareEntanglementChanges(concept_variable, concept.entanglements);
-    console.log(this.returnPayload());
     return this.returnPayload();
 
   }
@@ -151,11 +164,15 @@ export class SubmissionPayload{
         if(submission_ready){
               if(entanglement.entanglement_id){
                 console.log(entanglement);
+                console.log(this.load_variables);
                 var guid = utils.generateGuid();
+                console.log(guid);
                 this.addEntanglementLoadVariable(
                   guid,
                   entanglement.entanglement_id);
+                console.log(this.load_variables);
                 this.deleteEntanglement(guid);
+                console.log(this.load_variables);
 
               }
               console.log("Submisssion Entanglement Ready");
@@ -163,9 +180,11 @@ export class SubmissionPayload{
               new_entanglement.source_key = this.getEntanglementSourceKey(
                 db_variable, entanglement
               );
+              console.log(this.load_variables);
               new_entanglement.target_key = this.getEntanglementTargetKey(
                 db_variable, entanglement
               );
+              console.log(this.load_variables);
               console.log(new_entanglement);
               this.create_entanglements.push(new_entanglement);
 
@@ -176,11 +195,11 @@ export class SubmissionPayload{
 
   exportPayload(){}
   addEntanglementLoadVariable(variable, e_id){
-    var load_variable = {
+    var ent_variable = {
       id:e_id,
       key:variable
     };
-    this.load_entanglement_variables.push(load_variable);
+    this.load_entanglement_variables.push(ent_variable);
     this.deduplicateEntanglementVariables();
 
   }
@@ -206,7 +225,7 @@ export class SubmissionPayload{
     .removeDuplicates(this.load_variables, 'key');
   }
   deduplicateEntanglementVariables(){
-    this.load_variables = utils
+    this.load_entanglement_variables = utils
     .removeDuplicates(this.load_entanglement_variables, 'key');
   }
   returnPayload(){

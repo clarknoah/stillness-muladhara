@@ -27,15 +27,24 @@
 
       <div class="item" *ngIf="conceptSelected">
         <div class="container">
-          <div class="item" id="existingConceptForm" *ngIf="selectedConceptExists && selectedConceptFormReady">
+          <div class="item" id="existingConceptForm" *ngIf="selectedConceptExists===true && selectedConceptFormReady===true">
 
             <h3>{{selectedConcept.display_name}}: Edit Concept Form</h3>
             <mat-card>
-              <concept-form [conceptForm]="selectedConceptForm"></concept-form>
+              <concept-form [conceptForm]="selectedConceptForm"
+              (status)="formStatus($event)"></concept-form>
             </mat-card>
-
           </div>
-          <div class="item" id="Qualia List" *ngIf="selectedConceptExists">
+
+          <div class="item" id="existingConceptForm" *ngIf="selectedConceptExists===false && selectedConceptFormReady===true">
+            <h3>Create New Concept Form</h3>
+            <mat-card>
+              <concept-form [conceptForm]="newConceptForm"
+              (status)="formStatus($event)"></concept-form>
+            </mat-card>
+          </div>
+
+          <div class="item" id="Qualia List" *ngIf="selectedConceptExists && qualiaSelected === false">
             <h3>Qualias</h3>
             <mat-nav-list>
               <mat-list-item>
@@ -50,13 +59,20 @@
               </mat-list-item>
             </mat-nav-list>
           </div>
+
+          <div class="" *ngIf="qualiaSelected === true && selectedQualiaFormReady===true">
+            <h3 *ngIf="selectedQualiaExists===false">Create New Qualia Form</h3>
+            <h3 *ngIf="selectedQualiaExists===true">{{selectedQualia.display_name}}: Edit Qualia Form</h3>
+            <mat-card>
+              <concept-form [conceptForm]="selectedQualiaForm"
+              (status)="formStatus($event)"></concept-form>
+            </mat-card>
+          </div>
         </div>
 
       </div>
 
     </div>
-
-
   </mat-tab>
 
 
@@ -89,13 +105,21 @@
 
       <div class="item" *ngIf="entanglementSelected">
         <div class="container">
-          <div class="item" id="existingEntanglementForm" *ngIf="selectedEntanglementExists && selectedEntanglementFormReady">
+          <div class="item" id="existingEntanglementForm" *ngIf="selectedEntanglementExists===true && selectedEntanglementFormReady===true">
 
             <h3>{{selectedEntanglement.display_name}}: Edit Entanglement Form</h3>
             <mat-card>
-              <concept-form [conceptForm]="selectedEntanglementForm"></concept-form>
+              <concept-form [conceptForm]="selectedEntanglementForm"
+              (status)="formStatus($event)"></concept-form>
             </mat-card>
 
+          </div>
+          <div class="item" id="newEntanglement" *ngIf="selectedEntanglementExists === false && selectedEntanglementFormReady===true">
+            <h3>Create New Entanglement Form</h3>
+            <mat-card>
+              <concept-form [conceptForm]="newEntanglementForm"
+              (status)="formStatus($event)"></concept-form>
+            </mat-card>
           </div>
         </div>
 

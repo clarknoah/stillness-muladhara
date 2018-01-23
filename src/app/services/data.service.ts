@@ -27,6 +27,10 @@ export class DataService {
     return this.http.post(ROOT_API+'submitFormPayload',payload);
   }
 
+  updateCentralDogma():any{
+    return this.http.get(ROOT_API+'updateCentralDogma');
+  }
+
   getCentralDogmaConceptQualias(payload):any{
     return this.http.post(ROOT_API+'getCentralDogmaConceptQualias',payload);
   }
@@ -61,4 +65,23 @@ export class DataService {
 
     return new BehaviorSubject<any>(testData).asObservable();
   }
+
+  login(user, pass){
+    var payload = {
+      username:user,
+      password:pass
+    };
+    return this.http.post(ROOT_API+'loginAtman',payload)
+      .map(data=>data.json());
+  }
+
+  logout(){
+    return this.http.get(ROOT_API+'logoutAtman')
+      .map(data=>data.json());
+  }
+
+
+  isLoggedIn(){}
+
+
 }

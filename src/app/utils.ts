@@ -10,6 +10,10 @@ export class Utils{
     return newArray;
   }
 
+  getElementIndexByKeyValue(queryArray, queryKey, queryValue){
+    return queryArray.findIndex(function (o) { return o[queryKey] === queryValue; });
+  }
+
   generateGuid():string {
     function s4() {
       return Math.floor((1 + Math.random()) * 0x10000)
