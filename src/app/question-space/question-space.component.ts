@@ -152,7 +152,7 @@ selectedQualiaFormReady: boolean = false;
             .selectedQualiaForm
             .getEntanglementFieldByType('approved_qualia');
             console.log(field);
-            field.is_edittable = false;
+            field.is_editable = false;
             field.updated_value.setValue(this.selectedConcept.id.low);
           this.selectedQualiaFormReady = true;
 
@@ -176,7 +176,7 @@ selectedQualiaFormReady: boolean = false;
             .selectedQualiaForm
             .getEntanglementFieldByType('approved_qualia');
             console.log(field);
-            field.is_edittable = false;
+            field.is_editable = false;
           this.selectedQualiaFormReady = true;
 
 
