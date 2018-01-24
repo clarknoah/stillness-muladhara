@@ -71,12 +71,12 @@ export class DataService {
       username:user,
       password:pass
     };
-    return this.http.post(ROOT_API+'loginAtman',payload)
+    return this.http.post(ROOT_API+'login',payload)
       .map(data=>data.json());
   }
 
   logout(){
-    return this.http.get(ROOT_API+'logoutAtman')
+    return this.http.get(ROOT_API+'logout')
       .map(data=>data.json());
   }
 

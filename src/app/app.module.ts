@@ -44,6 +44,7 @@ import { HomeComponent } from './home/home.component';
 import { QuestionSpaceComponent } from './question-space/question-space.component';
 import { PlaygroundComponent } from './playground/playground.component';
 import { AnswerSpaceComponent } from './answer-space/answer-space.component';
+import { ConceptListEditorComponent } from './components/concept-list-editor/concept-list-editor.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -64,7 +65,8 @@ const routes: Routes = [
     HomeComponent,
     QuestionSpaceComponent,
     PlaygroundComponent,
-    AnswerSpaceComponent
+    AnswerSpaceComponent,
+    ConceptListEditorComponent
   ],
   imports: [
     BrowserModule,

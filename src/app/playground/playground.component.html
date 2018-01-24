@@ -1,45 +1,16 @@
-<p>
-  playground works!
-</p>
+<input #username type="text" name="" value="" placeholder="username">
+<input #password type="password" name="" value="" placeholder="password">
 
-<mat-card>
-  <concept-form [conceptForm]="conceptForm"></concept-form>
-</mat-card>
-
-<!--form class="" action="index.html" method="post">
-  <input [formControl]="form.field1" type="text" name="" value="">
-  <input [formControl]="form.field2" type="text" name="" value="">
-</form>
+<pre *ngIf="atmanService.userLoggedIn === true">Current Logged In User: {{atmanService.currentUserName}}</pre>
 
 
-<pre>Input1 Valid: {{form.field1.status}}</pre>
+<button (click)="login(username.value, password.value)"
+type="button" mat-raised-button name="button">Login</button>
 
-<pre>Input2 Valid: {{form.field2.status}}</pre>
+<button (click)="logout()" type="button" mat-raised-button name="button">Logout</button>
 
-
-<pre>Form Valid: {{form.validForm.value}}</pre>
-
-<div class="" *ngFor="let qualia of conceptForm.qualias">
-
-<qualia-field [qualiaField]="qualia"></qualia-field>
-
-
-<pre>
-Qualia Status: {{qualia.updated_value.status}}
-Qualia Modified: {{qualia.modified}}
-Submission Ready: {{qualia.submission_ready.value}}
-</pre>
-
-</div>
-
-<pre>
-ConceptForm Submission Status: {{conceptForm.formSubmissionReady | async}}
-</pre>
-
-
-<div class="">
-  <form class="" action="index.html" method="post" *ngFor="let entanglement of conceptForm.entanglements">
-    <entanglement-field [entanglementField]="entanglement">
-    </entanglement-field>
-  </form>
-</div -->
+<concept-list-editor
+[conceptLabel]="conceptLabel"
+[displayKey]="displayKey"
+ (status)="watchStatus($event)">
+</concept-list-editor>

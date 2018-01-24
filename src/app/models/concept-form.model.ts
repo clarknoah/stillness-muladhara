@@ -83,7 +83,11 @@ export class ConceptForm {
   initializeQualias(qualias){
     for(var i in qualias){
       var qualia = qualias[i];
-      if(qualia.data_type==='number' && qualia.current_value!==null){
+      if(qualia.data_type==='number' &&
+        qualia.current_value!==null &&
+        qualia.current_value !== undefined){
+
+        console.log(qualia);
         qualia.current_value = qualia.current_value.low;
       }
     //  console.log(qualias);

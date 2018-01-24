@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="item" >
+    <div class="" id="conceptListContainer" *ngIf="selectedConceptFormReady === false">
+      <h3>{{conceptLabel}}s</h3>
+      <mat-nav-list>
+        <mat-list-item>
+          <a (click)="loadNewConceptForm()">
+            <mat-icon>fiber_new</mat-icon> New {{conceptLabel}}</a>
+        </mat-list-item>
+        <mat-list-item *ngFor="let concept of conceptList">
+          <a (click)="loadExistingConceptForm(concept)">
+            <mat-icon>edit</mat-icon> {{concept.display_name}}</a>
+        </mat-list-item>
+      </mat-nav-list>
+    </div>
+
+    <div id="" *ngIf="conceptSelected===true">
+      <button matTooltip="Return to concepts" (click)="returnToConceptList()" mat-icon-button type="button" name="button">
+        <mat-icon>keyboard_backspace</mat-icon>
+    </button>
+    </div>
+  </div>
+
+  <div class="item" *ngIf="selectedConceptFormReady===true">
+    <div class="container">
+      <div class="item">
+        <h3 *ngIf="selectedConceptFormExists===true">selectedListItem.display_name: Editor</h3>
+        <h3 *ngIf="selectedConceptFormExists===false">New {{conceptLabel}}: Editor</h3>
+        <mat-card>
+          <concept-form [conceptForm]="selectedConceptForm"
+          (status)="formStatus($event)"></concept-form>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
