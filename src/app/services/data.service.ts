@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpModule, Http, Response, RequestOptions, Headers} from '@angular/http';
 import {Utils } from "../utils";
-import {Observable, BehaviorSubject} from "rxjs";
+import {Observable, BehaviorSubject} from "rxjs/Rx";
 import {testData } from "./testData";
 import 'rxjs/Rx';
 var utils = new Utils();

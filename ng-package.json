@@ -1,6 +1,24 @@
 {
   "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
   "lib": {
-    "entryFile": "public_api.ts"
+    "entryFile": "public_api.ts",
+    "externals": {
+      "@angular/material": "ng.material",
+      "@angular/material/icon" : "ng.material.icon",
+      "@angular/material/input" : "ng.material.input",
+      "@angular/material/card" : "ng.material.card",
+      "@angular/material/checkbox" : "ng.material.checkbox",
+      "@angular/material/form-field" : "ng.material.form-field",
+      "@angular/material/select" : "ng.material.select",
+      "@angular/material/option" : "ng.material.option",
+      "@angular/material/tabs" : "ng.material.tabs",
+      "@angular/material/datepicker" : "ng.material.datepicker",
+      "@angular/material/autocomplete" : "ng.material.autocomplete",
+      "@angular/material/list" : "ng.material.list",
+      "@angular/material/tooltip" : "ng.material.tooltip",
+      "@angular/material/table" : "ng.material.table",
+      "@angular/material/button" : "ng.material.button"
+
+    }
   }
 }
