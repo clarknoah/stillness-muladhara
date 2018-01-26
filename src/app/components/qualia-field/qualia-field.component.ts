@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Qualia } from '../../models/qualia.model';
 import {Utils} from '../../utils';
+
 var utils = new Utils();
 @Component({
   selector: 'qualia-field',

@@ -1,7 +1,12 @@
-export * from './src/app/stillness.module';
+export * from './src/app/stillnessModule/stillness.module';
 export { DataService } from './src/app/services/data.service';
 export { AtmanService } from './src/app/services/atman.service';
 export { ConceptForm } from './src/app/models/concept-form.model';
 export { Qualia } from './src/app/models/qualia.model';
 export { Entanglement } from './src/app/models/entanglement.model';
 export { SubmissionPayload } from './src/app/models/submission-payload.model';
+export { QuestionSpaceComponent } from './src/app/question-space/question-space.component';
+export { ConceptFormComponent } from './src/app/components/concept-form/concept-form.component';
+export { QualiaFieldComponent } from './src/app/components/qualia-field/qualia-field.component';
+export { EntanglementFieldComponent } from './src/app/components/entanglement-field/entanglement-field.component';
+export { ConceptListEditorComponent } from './src/app/components/concept-list-editor/concept-list-editor.component';

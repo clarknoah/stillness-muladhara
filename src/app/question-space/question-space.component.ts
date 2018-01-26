@@ -106,6 +106,7 @@ selectedQualiaFormReady: boolean = false;
         (data)=>{
           this.selectedEntanglementForm = new ConceptForm(
             'Entanglement', data, id.id);
+            this.selectedEntanglementForm.setDebugger(false);
             this.selectedEntanglementFormReady = true;
             this.selectedEntanglementExists = true;
         }
@@ -128,6 +129,7 @@ selectedQualiaFormReady: boolean = false;
               (data)=>{
                 this.selectedConceptForm = new ConceptForm(
                   concept.label, data, conceptId.id);
+                    this.selectedConceptForm.setDebugger(false);
                   this.selectedConceptFormReady = true;
                   this.selectedConceptExists = true;
               }
@@ -136,7 +138,7 @@ selectedQualiaFormReady: boolean = false;
         });
   }
 
-  loadConceptQualias(){}8
+  loadConceptQualias(){}
 
   loadNewQualiaForm(){
     this.qualiaSelected = true;
@@ -147,6 +149,7 @@ selectedQualiaFormReady: boolean = false;
           this.selectedQualiaForm = new ConceptForm(
             'Qualia',data.json()
           );
+            this.selectedQualiaForm.setDebugger(false);
           console.log("searching");
           var field = this
             .selectedQualiaForm

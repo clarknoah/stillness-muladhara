@@ -1,7 +1,6 @@
 import {Qualia} from "./qualia.model";
 import {Entanglement} from "./entanglement.model";
 import {Observable, BehaviorSubject} from "rxjs";
-//import {DataService} from "../services/data.service";
 import {ReflectiveInjector} from '@angular/core';
 import {Utils} from '../utils';
 
@@ -15,6 +14,8 @@ export class ConceptForm {
   entanglements:Entanglement[] = [];
   formSubmissionReady: BehaviorSubject<boolean> = new BehaviorSubject(false);
   existingForm:boolean;
+  debug: boolean = false;
+  showButtons: boolean = true;
   constructor(
     conceptLabel:string,
     payload:any,
@@ -112,7 +113,36 @@ export class ConceptForm {
     return this.entanglements[fieldIndex];
   }
 
-  getQualiaFieldByType(){}
+  setQualiaFieldValue(db_key, value){
+    this.getQualiaFieldByType(db_key)
+      .updated_value.setValue(value);
+  }
+
+  setEntanglementFieldValue(db_key, value, db_variable){
+    var ent = this.getEntanglementFieldByType(db_key);
+      ent.updated_value.setValue(value);
+      ent.updated_value_db_variable = db_variable;
+  }
+
+  getQualiaFieldByType(db_key){
+    var fieldIndex= utils.getElementIndexByKeyValue(
+      this.qualias, 'db_key',db_key);
+    return this.qualias[fieldIndex];
+  }
+
+  setDebugger(value){
+    this.debug = value;
+    for(var i in this.qualias){
+      this.qualias[i].debug = value;
+    }
+    for(var i in this.entanglements){
+      this.entanglements[i].debug = value;
+    }
+  }
+
+  setButtons(value){
+    this.showButtons = value;
+  }
 
   initializeEntanglements(entanglements){
     for(var i in entanglements){

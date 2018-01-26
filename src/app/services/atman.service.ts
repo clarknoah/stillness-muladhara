@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { ConceptForm } from '../models/concept-form.model';
 import { DataService } from './data.service';
 import { BehaviorSubject } from 'rxjs';
+import { Utils } from '../utils';
+
+const utils = Utils;
+
 @Injectable()
 export class AtmanService {
 
@@ -9,19 +13,41 @@ export class AtmanService {
   currentUserName: string;
   currentAtman: BehaviorSubject<ConceptForm> = new BehaviorSubject(null);
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService) {
+    if(localStorage.getItem('objectUser')){
+      this.userLoggedIn = true;
+    }else{
+      this.userLoggedIn = false;
+    }
+   }
 
   getCurrentAtmanConcept(){}
 
+  getCurrentAtmanDbVariable(){
+    if(this.userLoggedIn===true){
+      var dbVar = {
+        id:this.currentAtman.value.db_id,
+        key:this.currentAtman.value.db_variable
+      };
+    return dbVar;
+    }else{
+      console.log("No User Logged In");
+    }
+
+  }
+
   getCurrentAtman(){}
 
-  isLoggedIn(){}
+  isLoggedIn():boolean {
+    return this.userLoggedIn;
+  }
 
   logout(){
     this.dataService.logout()
       .subscribe(
         (data)=>{
         this.userLoggedIn = false;
+        localStorage.removeItem('userObject');
         console.log(data);
       });
   }

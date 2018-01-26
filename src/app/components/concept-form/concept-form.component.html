@@ -8,7 +8,7 @@
         *ngFor="let entanglement of conceptForm.entanglements; let i=index"
         [entanglementField]="entanglement"></entanglement-field>
     </div>
-
+  <div class="" *ngIf="conceptForm.showButtons === true">
     <button [disabled]="conceptForm.formSubmissionReady.value !== true"
       mat-raised-button
       (click)="initializeSubmit()"
@@ -23,7 +23,8 @@
        (click)="archiveConcept()">
         <mat-icon>delete</mat-icon>
      </button>
+  </div>
 </form>
-<pre>
+<pre *ngIf="conceptForm.debug === true">
   Ready for submission:{{conceptForm.formSubmissionReady.value}}
 </pre>

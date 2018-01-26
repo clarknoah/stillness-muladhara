@@ -14,12 +14,22 @@ import { AtmanService } from '../services/atman.service';
   styleUrls: ['./playground.component.css']
 })
 export class PlaygroundComponent implements OnInit {
-
+  timer: Observable<any>;
+  timerSubscriber: any;
   conceptLabel: string = "Atman";
   displayKey: string = "display_name";
   constructor(private dataService: DataService,
   private atmanService: AtmanService) {
 
+    this.timer = Observable.timer(1000,1000);
+    this.timerSubscriber = this.timer.subscribe(
+      (data)=>{
+        console.log(data);
+        if(data===5){
+          this.timerSubscriber.unsubscribe();
+        }
+      }
+    );
 
   }
 

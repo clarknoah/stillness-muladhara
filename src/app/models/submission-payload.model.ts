@@ -96,10 +96,13 @@ export class SubmissionPayload{
     if(entanglement.creator === 'source'){
       return conceptVariable;
     }else if(entanglement.creator === 'target'){
-      this.addLoadVariable(
-        entanglement.updated_value_db_variable,
-          entanglement.updated_value.value,
-         entanglement.current_selected_object.label);
+      if(entanglement.updated_value.value!==null){
+        console.log("###HOLEPUNCHER###");
+        this.addLoadVariable(
+          entanglement.updated_value_db_variable,
+            entanglement.updated_value.value,
+           entanglement.current_selected_object.label);
+      }
       return entanglement.updated_value_db_variable;
     }
   }
@@ -108,10 +111,13 @@ export class SubmissionPayload{
     if(entanglement.creator === 'target'){
       return conceptVariable;
     }else{
-      this.addLoadVariable(
-        entanglement.updated_value_db_variable,
-          entanglement.updated_value.value,
-         entanglement.current_selected_object.label);
+      if(entanglement.updated_value.value!==null){
+        console.log("###HOLEPUNCHER###");
+        this.addLoadVariable(
+          entanglement.updated_value_db_variable,
+            entanglement.updated_value.value,
+           entanglement.current_selected_object.label);
+      }
       return entanglement.updated_value_db_variable;
     }
   }

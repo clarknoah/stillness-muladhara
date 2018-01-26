@@ -1,58 +1,61 @@
-<mat-form-field class="field-full-width" *ngIf="qualiaField.data_type==='text'">
-<input
-  [formControl]="qualiaField.updated_value"
-  type="text"
-  matInput
-  placeholder="{{qualiaField.display_name}}">
-</mat-form-field>
 
-<mat-form-field class="field-full-width"  *ngIf="qualiaField.data_type==='text_select'">
-  <mat-select [formControl]="qualiaField.updated_value" placeholder="{{qualiaField.display_name}}">
-    <mat-option *ngFor="let option of qualiaField.select_options" [value]="option">
-      {{option}}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
+<div *ngIf="qualiaField.is_editable===true">
+  <mat-form-field class="field-full-width" *ngIf="qualiaField.data_type==='text'">
+  <input
+    [formControl]="qualiaField.updated_value"
+    type="text"
+    matInput
+    placeholder="{{qualiaField.display_name}}">
+  </mat-form-field>
 
-<mat-form-field class="field-full-width"  *ngIf="qualiaField.data_type==='array-select'">
-  <mat-select
-  [formControl]="qualiaField.updated_value"
-  placeholder="{{qualiaField.display_name}}">
-    <mat-option *ngFor="let option of qualiaField.select_options" [value]="option">
-      {{option}}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
+  <mat-form-field class="field-full-width"  *ngIf="qualiaField.data_type==='text_select'">
+    <mat-select [formControl]="qualiaField.updated_value" placeholder="{{qualiaField.display_name}}">
+      <mat-option *ngFor="let option of qualiaField.select_options" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
-<mat-form-field class="field-full-width"  *ngIf="qualiaField.data_type==='number'">
-<input
-  [formControl]="qualiaField.updated_value"
-  type="number"
-  matInput
-  placeholder="{{qualiaField.display_name}}">
-</mat-form-field>
+  <mat-form-field class="field-full-width"  *ngIf="qualiaField.data_type==='array-select'">
+    <mat-select
+    [formControl]="qualiaField.updated_value"
+    placeholder="{{qualiaField.display_name}}">
+      <mat-option *ngFor="let option of qualiaField.select_options" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
-<mat-form-field class="field-full-width"  *ngIf="qualiaField.data_type==='date'">
-  <input matInput
-  [matDatepicker]="picker"
-  [formControl]="qualiaField.updated_value"
-  type="date"
-  matInput
-  placeholder="{{qualiaField.display_name}}">
-  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-datepicker #picker></mat-datepicker>
-</mat-form-field>
+  <mat-form-field class="field-full-width"  *ngIf="qualiaField.data_type==='number'">
+  <input
+    [formControl]="qualiaField.updated_value"
+    type="number"
+    matInput
+    placeholder="{{qualiaField.display_name}}">
+  </mat-form-field>
 
-
-<mat-checkbox
-  *ngIf="qualiaField.data_type==='boolean'"
-  [formControl]="qualiaField.updated_value">{{qualiaField.display_name}}</mat-checkbox>
+  <mat-form-field class="field-full-width"  *ngIf="qualiaField.data_type==='date'">
+    <input matInput
+    [matDatepicker]="picker"
+    [formControl]="qualiaField.updated_value"
+    type="date"
+    matInput
+    placeholder="{{qualiaField.display_name}}">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
 
 
-<pre *ngIf="qualiaField.debug">
-Mandatory Value: {{qualiaField.mandatory_field}}
-Current Value: {{qualiaField.current_value}}
-Updated Value: {{qualiaField.updated_value.value}}
-Modified: {{qualiaField.modified}}
-Ready For Submission: {{qualiaField.submission_ready | async}}
-</pre>
+  <mat-checkbox
+    *ngIf="qualiaField.data_type==='boolean'"
+    [formControl]="qualiaField.updated_value">{{qualiaField.display_name}}</mat-checkbox>
+
+  <pre *ngIf="qualiaField.debug" style="font-size: 8px">
+  Mandatory Value: {{qualiaField.mandatory_field}}
+  Current Value: {{qualiaField.current_value}}
+  Datatype: {{qualiaField.data_type}}
+  Updated Value: {{qualiaField.updated_value.value}}
+  Modified: {{qualiaField.modified}}
+  Ready For Submission: {{qualiaField.submission_ready | async}}
+  </pre>
+</div>
