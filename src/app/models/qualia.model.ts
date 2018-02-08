@@ -40,8 +40,8 @@ export class Qualia {
   }
 
   constructNewQualia(payload:any): void{
-      this.current_value = payload.default_value;
       this.constructVariables(payload);
+      if(payload.default_value !== null) this.current_value = payload.default_value; 
   }
 
   constructExistingQualia(payload:any):void{

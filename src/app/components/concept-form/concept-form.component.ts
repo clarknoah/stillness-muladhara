@@ -26,7 +26,6 @@ export class ConceptFormComponent implements OnInit {
 
    }
 
-
   prepareQualiasForSubmission():any{
     var qualias = {};
     for(var index in this.conceptForm.qualias){
