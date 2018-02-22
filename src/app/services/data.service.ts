@@ -4,9 +4,17 @@ import {Utils } from "../utils";
 import {Observable, BehaviorSubject} from "rxjs/Rx";
 import {testData } from "./testData";
 import 'rxjs/Rx';
+import {DOCUMENT} from '@angular/platform-browser';
 var utils = new Utils();
+var ROOT_API;
+if(window.location.hostname==="localhost:4200"){
+  const ROOT_API = "http://localhost:3000/";
+}else if(window.location.hostname === "104.196.54.169"){
+  const ROOT_API = "http://104.196.54.169/";
+}
 
-const ROOT_API = "http://localhost:3000/";
+
+
 
 @Injectable()
 export class DataService {
