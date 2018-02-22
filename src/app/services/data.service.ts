@@ -6,14 +6,16 @@ import {testData } from "./testData";
 import 'rxjs/Rx';
 import {DOCUMENT} from '@angular/platform-browser';
 var utils = new Utils();
-var ROOT_API;
-if(window.location.hostname==="localhost:4200"){
-  const ROOT_API = "http://localhost:3000/";
+var temp_root = "";
+
+console.log(window.location.hostname);
+if(window.location.hostname==="localhost"){
+  temp_root = "http://localhost:3000/";
 }else if(window.location.hostname === "104.196.54.169"){
-  const ROOT_API = "http://104.196.54.169/";
+  temp_root = "http://104.196.54.169/";
 }
 
-
+const ROOT_API = temp_root;
 
 
 @Injectable()
