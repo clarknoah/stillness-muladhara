@@ -8,7 +8,6 @@ import { DataService } from '../services/data.service';
 import { AtmanService } from '../services/atman.service';
 import { HomeComponent } from '../home/home.component';
 import { QuestionSpaceComponent } from '../question-space/question-space.component';
-import { AnswerSpaceComponent } from '../answer-space/answer-space.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ConceptForm } from '../models/concept-form.model';
 import { Qualia } from '../models/qualia.model';
@@ -57,7 +56,6 @@ import {
     QualiaFieldComponent,
     EntanglementFieldComponent,
     QuestionSpaceComponent,
-    AnswerSpaceComponent,
     ConceptListEditorComponent
   ],
   providers:[
@@ -69,7 +67,6 @@ import {
     QualiaFieldComponent,
     EntanglementFieldComponent,
     QuestionSpaceComponent,
-    AnswerSpaceComponent,
     ConceptListEditorComponent
   ]
 })
